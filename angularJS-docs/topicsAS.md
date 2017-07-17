@@ -218,8 +218,8 @@ AngularJS Material is both a UI Component framework and a reference implementati
 
 # Bibliography
 
-https://blog.thoughtram.io/angular/2015/07/07/service-vs-factory-once-and-for-all.html
-https://docs.angularjs.org/guide/
-https://www.w3schools.com/angular/angular_routing.asp
-http://tutorials.jenkov.com/angularjs/routes.html
-https://desarrolloweb.com/articulos/bindings-componentes-angularjs.html
+1. https://blog.thoughtram.io/angular/2015/07/07/service-vs-factory-once-and-for-all.html
+2. https://docs.angularjs.org/guide/
+3. https://www.w3schools.com/angular/angular_routing.asp
+4. http://tutorials.jenkov.com/angularjs/routes.html
+5. https://desarrolloweb.com/articulos/bindings-componentes-angularjs.html
