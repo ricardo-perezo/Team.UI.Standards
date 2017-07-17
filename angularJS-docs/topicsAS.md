@@ -11,26 +11,33 @@ to attach a specified behavior to that DOM element (e.g. via event listeners), o
 NORMALIZATION: AngularJS normalizes an element's tag and attribute name to determine which elements match which directives. We typically refer to directives by
 their case-sensitive camelCase normalized name (e.g. ngModel).
 
-1.- Strip x- and data- from the front of the element/attributes. (ng-model & data-ng-model is the same)
-2.- Convert the :, -, or _ delimited name to camelCase.
-
-TYPES: $compile can match directives based on element names (E), attributes (A), class names (C), and comments (M).
-
-(E) <my-dir></my-dir>
-(A) <span my-dir="exp"></span>
-(C) <span class="my-dir: exp;"></span>
-(M) <!-- directive: my-dir exp -->
+1. Strip x- and data- from the front of the element/attributes. (ng-model & data-ng-model is the same)
+2. Convert the :, -, or _ delimited name to camelCase.
 
 we say an element matches a directive when the directive is part of its declaration.
 
 ## Restrict types in Directives
 
-The restrict option is used to specify how a directive can be invoked on the page.
+The restrict option is used to specify how a directive can be invoked on the page. $compile can match directives based on element names (E), attributes (A), class names (C), and comments (M).
 
-- 'A' - <span softtek-directive></span>
-- 'E' - <softtek-directive></softtek-directive>
-- 'C' - <span class="softtek-directive"></span>
-- 'M' - <!-- directive: softtek-directive -->
+- A :
+```html
+<span softtek-directive></span>
+```
+
+- E :
+```html
+<softtek-directive></softtek-directive>
+```
+
+- C :
+```html
+<span class="softtek-directive"></span>
+```
+- M :
+```html
+<!-- directive: softtek-directive -->
+```
 
 [See the example of directives](https://github.com/ricardo-perezo/Team.UI.Standards/blob/standars/uiDocs/angularJS/angularJS-docs/directive.md)
 
@@ -66,23 +73,25 @@ When not to use Components:
 
 Available options for Directives(D) and Components(C)
 
-bindings (C)                         
-bindToController (D)	                  
-compile function (D)	                 
-controller (D,C)	                       
-controllerAs (D,C)	                     
-link functions (D)	                   
-multiElement (D)	                     
-priority (D)	                        
-replace (D)	                            
-require (D,C)	                            
-restrict (D)	                         
-scope (D)	                               
-template (D,C)	                         
-templateNamespace (D)	                 
-templateUrl (D,C)	                       
-terminal (D)	                         
-transclude (D,C)	                       
+Available attribute-Directives |  Directives | Components
+--------|-------------|-----------
+bindings | | Yes (binds to controller)                         
+bindToController | Yes (Default: false) | 	                  
+compile function | Yes |	                 
+controller | Yes | Yes (default function() {})                       
+controllerAs | Yes (default: false) | Yes (default: $ctrl)	                     
+link functions | Yes |	                   
+multiElement | Yes |	                     
+priority | Yes |                        
+replace | Yes (deprecated) |	                            
+require | Yes | Yes	                            
+restrict | Yes | No (restricted to element only)	                         
+scope | Yes (default: false) | No (scope is always isolate)	                               
+template | Yes | Yes, injectable	                         
+templateNamespace | Yes | No	                 
+templateUrl | Yes | Yes, injectable                       
+terminal | Yes |	                         
+transclude | Yes (default: false) | Yes (default: false)                      
 
 # Controllers
 
@@ -92,30 +101,31 @@ transclude (D,C)
 
  Use controllers to:
 
--Set up the initial state of the $scope object.
--Add behavior to the $scope object.
+* Set up the initial state of the $scope object.
+* Add behavior to the $scope object.
 
 Do not use controllers to:
 
--Manipulate DOM: Controllers should contain only business logic. Putting any presentation logic into Controllers significantly affects its testability.
+* Manipulate DOM: Controllers should contain only business logic. Putting any presentation logic into Controllers significantly affects its testability.
  AngularJS has databinding for most cases and directives to encapsulate manual DOM manipulation.
--Format input: Use AngularJS form controls instead.
--Filter output: Use AngularJS filters instead.
--Share code or state across controllers: Use AngularJS services instead.
--Manage the life-cycle of other components (for example, to create service instances).
+* Format input: Use AngularJS form controls instead.
+* Filter output: Use AngularJS filters instead.
+* Share code or state across controllers: Use AngularJS services instead.
+* Manage the life-cycle of other components (for example, to create service instances).
 
 # Services
 AngularJS services are substitutable objects that are wired together using dependency injection (DI). You can use services to organize and share code across your app.
 
 AngularJS services are:
--Lazily instantiated: AngularJS only instantiates a service when an application component depends on it.
--Singletons: Each component dependent on a service gets a reference to the single instance generated by the service factory.
+- Lazily instantiated: AngularJS only instantiates a service when an application component depends on it.
+- Singletons: Each component dependent on a service gets a reference to the single instance generated by the service factory.
 
 [See example of service](https://github.com/ricardo-perezo/Team.UI.Standards/blob/standars/uiDocs/angularJS/angularJS-docs/service.md)
 
 ## Consuming services
 For consuming services we need to prepare the view/template and the controller. To do that we have to binding the view element with a controller function for example as event.
 
+```html
 //view1.html
 <div class="container">
      <form class="form-signin" role="form">
@@ -127,20 +137,23 @@ For consuming services we need to prepare the view/template and the controller. 
      <button class="btn btn-lg btn-primary btn-block" ng-click="send()">Sign in</button>
    </form>
  </div>
+```
 
  We Assumed controller is associated with this view throught $routeProvider, It means ng-controller on view is not needed. Now in the controller side we have to declare models, methods to handle events, etc. In this case we have have to pay attention to send() function in the ng-click directive of button in example.
 
-//controller view1.js
-.controller('View1Ctrl', ['$scope', 'UserService', function($scope, UserService) {
-  $scope.var1 = "angularjs@softtek.com"
-  $scope.var2 = "softtek"
+ ```html
+ //controller view1.js
+ .controller('View1Ctrl', ['$scope', 'UserService', function($scope, UserService) {
+   $scope.var1 = "angularjs@softtek.com"
+   $scope.var2 = "softtek"
 
-  $scope.send = function() {
-    if(UserService.login($scope.var1, $scope.var2)) {
-      alert("SUCESS!!")
-    }
-  }
-}]);
+   $scope.send = function() {
+     if(UserService.login($scope.var1, $scope.var2)) {
+       alert("SUCESS!!")
+     }
+   }
+ }]);
+ ```
 
 As we can see, throught inyection dependencies we can include any custom service (UserService) or existing ($http).
 
@@ -148,11 +161,13 @@ As we can see, throught inyection dependencies we can include any custom service
 
 In almost all scenarios errors in services born for poor validations in data or in the async request (promise). So in the first case we can use a simple try/catch sentence and handle error types there. The second scenery thanks to promise is relative easy to handle errors 'cause promise has a section dedicate to attendant errors. In the particular case of $http exist a block exclusive for handle errors:
 
+```html
 $http.get(url).success(function (data) {
   //some logical with data object
 }).error(function(error) {
   //handle error
 });
+```
 
 # Factory
 
@@ -172,10 +187,13 @@ But here's the fact, what happen if service send us an object like factory?. In 
 
 AngularJS routes enables you to show different content depending on what route is chosen. A route is specified in the URL after the # sign. AngularJS ngRoute module provides routing, deep linking services and directives for angular applications. The ngRoute module routes your application to different pages without reloading the entire application. To enabled this functionality on your app is required include a div tag with the directive ngView to tell $compiler that div will be the container of all application.
 
-//HTML
+```html
+//index.html
 <div ng-view></div>
+```
 
-//JS
+```html
+//app.js
 var app = angular.module("myApp", ["ngRoute"]);
 app.config(function($routeProvider) {
     $routeProvider
@@ -192,12 +210,13 @@ app.config(function($routeProvider) {
         templateUrl : "blue.htm"
     });
 });
+```
 
 # Angular Material
 
 AngularJS Material is both a UI Component framework and a reference implementation of Google's Material Design Specification. This project provides a set of reusable, well-tested, and accessible UI components based on Material Design. Material Design is a specification for a unified system of visual, motion, and interaction design that adapts across different devices and different screen sizes. To use this set of components we need to include into an angular-cli project just importing npm install material dependencies.
 
-#Bibliography
+# Bibliography
 
 https://blog.thoughtram.io/angular/2015/07/07/service-vs-factory-once-and-for-all.html
 https://docs.angularjs.org/guide/

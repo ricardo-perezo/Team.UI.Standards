@@ -1,5 +1,6 @@
 # Example of service
 
+```html
 //UserServices.js
 angular.module("myApp", [])
 
@@ -30,3 +31,4 @@ angular.module("myApp", [])
     return false
   }
 }]);
+```

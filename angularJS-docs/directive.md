@@ -1,5 +1,6 @@
 ## Example create new directive tag
 
+```html
 <softtek-directive></softtek-directive>
 
 <script>
@@ -10,5 +11,6 @@ app.directive("softtekDirective", function() {
     };
 });
 </script>
+```
 
 ## Example create directive inside tag
