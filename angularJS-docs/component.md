@@ -21,5 +21,5 @@ Now to use the component we have to write the tag in the html that we want to us
 
 ```html
 // index.html
-<my-component data="hola que tal Softtek"></my-component>
+<my-component data="hi Softtek"></my-component>
 ```
