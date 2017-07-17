@@ -1,9 +1,9 @@
-# COMPILER
+# Compiler
 
 AngularJS's HTML compiler allows the developer to teach the browser new HTML syntax. The compiler allows you to attach behavior to any HTML element
 or attribute and even create new HTML elements or attributes with custom behavior.
 
-# DIRECTIVES
+# Directives
 
 Directives are markers on a DOM element (such as an attribute, element name, comment or CSS class) that tell AngularJS's HTML compiler ($compile)
 to attach a specified behavior to that DOM element (e.g. via event listeners), or even to transform the DOM element and its children.
@@ -16,7 +16,7 @@ their case-sensitive camelCase normalized name (e.g. ngModel).
 
 we say an element matches a directive when the directive is part of its declaration.
 
-## Restrict types in Directives
+## Restrict Types in Directives
 
 The restrict option is used to specify how a directive can be invoked on the page. $compile can match directives based on element names (E), attributes (A), class names (C), and comments (M).
 
@@ -54,7 +54,7 @@ Advantages of Components:
 -Optimized for component-based architecture
 -Writing component directives will make it easier to upgrade to Angular
 
-## Types of bindings in Components
+## Types of Bindings in Components
 
 - = : This serves to deliver a reference to an object. So whatever is being delivered is shared between components
 - @ : This serves to deliver a value. No binding of any kind
@@ -63,7 +63,7 @@ Advantages of Components:
 
 [See the example of component](https://github.com/ricardo-perezo/Team.UI.Standards/blob/standars/uiDocs/angularJS/angularJS-docs/component.md)
 
-# Directives VS Components
+# Directives vs Components
 
 When not to use Components:
 
@@ -122,7 +122,7 @@ AngularJS services are:
 
 [See example of service](https://github.com/ricardo-perezo/Team.UI.Standards/blob/standars/uiDocs/angularJS/angularJS-docs/service.md)
 
-## Consuming services
+## Consuming Services
 For consuming services we need to prepare the view/template and the controller. To do that we have to binding the view element with a controller function for example as event.
 
 ```html
@@ -157,7 +157,7 @@ For consuming services we need to prepare the view/template and the controller. 
 
 As we can see, throught inyection dependencies we can include any custom service (UserService) or existing ($http).
 
-## Services Error handling
+## Services Error Handling
 
 In almost all scenarios errors in services born for poor validations in data or in the async request (promise). So in the first case we can use a simple try/catch sentence and handle error types there. The second scenery thanks to promise is relative easy to handle errors 'cause promise has a section dedicate to attendant errors. In the particular case of $http exist a block exclusive for handle errors:
 
@@ -177,7 +177,7 @@ Well, you might see that instead of working with this in the factory, we’re re
 
 [See example of Factory](https://github.com/ricardo-perezo/Team.UI.Standards/blob/standars/uiDocs/angularJS/angularJS-docs/factory.md)
 
-# Factory VS Services
+# Factory vs Services
 
 Which one to use? basically Factories allows us to do some configuration stuff or conditionally create an object or not, which doesn’t seem to be possible when creating a service directly, which is why most resources recommend to use factories over services, but the reasoning is inappreciable.
 

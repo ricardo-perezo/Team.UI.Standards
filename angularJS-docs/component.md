@@ -1,4 +1,4 @@
-## Example of Controller
+## Example of Component
 
 To Start you have to decide the structure of your project when you working with components. In other words you decide if you create folder/subfolders for each component, group by module, etc. To show only how components works we are going to use plain structure.
 

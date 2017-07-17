@@ -1,4 +1,4 @@
-# Example of service
+# Example of Service
 
 ```html
 //UserServices.js

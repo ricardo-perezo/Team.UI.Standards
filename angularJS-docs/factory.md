@@ -1,4 +1,4 @@
-# Example of factory
+# Example of Factory
 
 ```html
 //UserFactory.js
