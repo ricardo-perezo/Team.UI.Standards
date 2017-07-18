@@ -16,7 +16,7 @@ NgModule is a decorator function that takes a single metadata object whose prope
 - providers: creators of services that this module contributes to the global collection of services; they become accessible in all parts of the app.
 - bootstrap: the main application view, called the root component, that hosts all other app views. Only the root module should set this bootstrap property.
 
-[See Example...](https://github.com/ricardo-perezo/Team.UI.Standards/blob/Standars/uiDocs/angular/angular/module.md)
+[See Example...](https://github.com/ricardo-perezo/Team.UI.Standards/blob/standars/uiDocs/angular/angular/module.md)
 
 Launch an application by bootstrapping its root module. During development you're likely to bootstrap the AppModule in a main.ts file like this one
 
@@ -30,7 +30,7 @@ platformBrowserDynamic().bootstrapModule(AppModule);
 ## Components
 A component controls a patch of the page, called a view. You define a component's application logic — what it does to support the view inside a class. The class interacts with the view through an API of properties and methods. A component contains a class, a template, and metadata. A template is a form of HTML that tells Angular how to render the component. A component can belong to one and only one module.
 
-[See Example...](https://github.com/ricardo-perezo/Team.UI.Standards/blob/Standars/uiDocs/angular/angular/component.md)
+[See Example...](https://github.com/ricardo-perezo/Team.UI.Standards/blob/standars/uiDocs/angular/angular/component.md)
 
 ## Services
 A service provides any value, function, or feature that your application needs. A service is typically a class with a narrow, well-defined purpose; it should do something specific and do it well. Components are big consumers of services. Services are big consumers of microservices.
@@ -46,7 +46,7 @@ The route definition has the following parts:
 - Path: The router matches this route's path to the URL in the browser address bar.
 - Component: The component that the router should create when navigating to this route.
 
-[See Example](https://github.com/ricardo-perezo/Team.UI.Standards/blob/Standars/uiDocs/angular/angular/route.md)
+[See Example](https://github.com/ricardo-perezo/Team.UI.Standards/blob/standars/uiDocs/angular/angular/route.md)
 
 ### Base href
 
