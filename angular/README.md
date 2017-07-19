@@ -96,7 +96,7 @@ A Promise handles a single event when an async operation completes or fails.
 - There are also powerful operators like retry(), or replay(), ... that are often quite handy.
 
 
-# Bibliografia
+# Bibliography
 
 1. https://www.ibm.com/developerworks/library/wa-implement-a-single-page-application-with-angular2/index.html
 
@@ -106,7 +106,7 @@ A Promise handles a single event when an async operation completes or fails.
 
 4. https://stackoverflow.com/questions/37364973/angular-promise-vs-observable
 
-# Practicas
+# Some Practices
 
 http://amanvirk.me/angular-cli-getting-started/
 
