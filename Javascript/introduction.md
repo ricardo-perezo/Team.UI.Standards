@@ -332,6 +332,20 @@ var arrowPlusMulti  = (firstParam,secondParam) => firstParam+secondParam;
 
 ```
 ##  11. <a name='This'></a>This
+this is a dynamic  object that represent the actual object who calls a function, also exist a native method in any function to call a function and and 
+```js
+var person={
+              name:"john",
+              greet:function greet(){
+                console.log("Hello my name is "+ this.name)
+              }
+            }
+    person.greet()//"Hello my name is john"    
+
+var marie={name:"marie"}
+    person.greet.call(marie)//"Hello my name is marie" 
+
+``` 
 
 ##  12. <a name='Scope'></a>Scope
 
