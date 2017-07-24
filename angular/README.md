@@ -3,6 +3,64 @@ Angular is a framework for building client applications in HTML and either JavaS
 
 The framework consists of several libraries, some of them core and some optional.
 
+## Provider
+Is a resource or JavaScript “thing” that Angular uses to provide (result in, generate) something we want to use:
+- A class provider generates/provides an instance of the class.
+- A factory provider generates/provides whatever returns when you run a specified function.
+- A value provider doesn’t need to take an action to provide the result like the previous two, it just returns its value.
+
+Unfortunately, the term “provider” is sometimes used to mean both the class, function or value and the thing that results from the provider – a class instance, the function’s return value or the returned value.
+
+
+## Classes
+Are a new feature in ES6, used to describe the blueprint of an object and make EcmaScript's prototypical inheritance model function more like a traditional class-based language.
+
+Traditional class-based languages often reserve the word this to reference the current (runtime) instance of the class. In Javascript this refers to the calling context and therefore can change to be something other than the object.
+
+## Interface
+Is a TypeScript artifact, it is not part of ECMAScript. An interface is a way to define a contract on a function with respect to the arguments and their type. Along with functions, an interface can also be used with a Class as well to define custom types.
+
+An interface is an abstract type, it does not contain any code as a class does. It only defines the 'signature' or shape of an API. During transpilation, an interface will not generate any code, it is only used by Typescript for type checking during development.
+
+Here is an example of an interface describing a function API:
+
+```html
+interface PrintOutput {
+  (message: string): void;    // common case
+  (message: string[]): void;  // less common case
+}
+
+let printOut: PrintOutput = (message) => {
+  if (Array.isArray(message)) {
+    console.log(message.join(', '));
+  } else {
+    console.log(message);
+  }
+}
+
+printOut('hello');       // 'hello'
+printOut(['hi', 'bye']); // 'hi, bye'
+```
+
+## Pipes
+A pipe takes in data as input and transforms it to a desired output. In this page, you'll use pipes to transform a component's birthday property into a human-friendly date.
+
+```html
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'hero-birthday',
+  template: `<p>The hero's birthday is {{ birthday | date }}</p>`
+})
+export class HeroBirthdayComponent {
+  birthday = new Date(1988, 3, 15); // April 15, 1988
+}
+```
+
+As you can see, pipes are exclusive for the component's template to decide according a condition of which case of format data are going to be displayable.
+
+
+
 ## Modules
 Angular applications are modular. Every Angular application has at least one module (the root module), conventionally named AppModule. The root module can be the only module in a small application, but most apps have many more modules. As the developer, it's up to you to decide how to use the modules concept.
 
@@ -51,6 +109,129 @@ The route definition has the following parts:
 ### Base href
 
 Most routing applications should add a ``` <base href='/'> ``` element to the index.html as the first child in the <head> tag to tell the router how to compose navigation URLs.
+
+## Guards
+
+Sometimes we want to prevent our users accessing areas that they’re not allowed to access, or, we might want to ask them for confirmation when leaving a certain area. Angular’s router provides a feature called Navigation Guards that try to solve exactly that problem.
+
+### Guard Types
+There are four different guard types we can use to protect our routes:
+- CanActivate: Decides if a route can be activated
+- CanActivateChild: Decides if children routes of a route can be activated
+- CanDeactivate: Decides if a route can be deactivated
+- CanLoad: Decides if a module can be loaded lazily
+
+#### Activating Routes (Defining Guards)
+
+***As Function (providers way):*** we need to define a token and the guard function. Here’s what a super simple guard implementation could look like:
+
+```html
+@NgModule({
+  ...
+  providers: [
+    provide: 'CanAlwaysActivateGuard',
+    useValue: () => {
+      return true;
+    }
+  ],
+  ...
+})
+export class AppModule {}
+```
+
+Since it’s always returning true, this guard is not protecting anything, as it will always activate the route that uses it.
+
+Once a guard is registered with a token, we can use it in our route configuration. The following route configuration has the CanAlwaysActivateGuard attached, which gets executed when routing to that specific route.
+
+```html
+export const AppRoutes:RouterConfig = [
+  {
+    path: '',
+    component: SomeComponent,
+    canActivate: ['CanAlwaysActivateGuard']
+  }
+];
+```
+
+***As Classes:*** Sometimes, a guard needs dependency injection capabilities. In these cases, it makes sense to define a guard as a class, because dependencies can then be simply injected.
+
+When creating a guard class, we implement either the CanActivate, CanDeactivate, or CanActivateChild interface, which requires us to have a method canActivate(), canActivateChild(), or canDeactivate() respectively.
+
+```html
+import { Injectable } from '@angular/core';
+import { CanActivate } from '@angular/router';
+import { AuthService } from './auth.service';
+
+@Injectable()
+export class CanActivateViaAuthGuard implements CanActivate {
+
+  constructor(private authService: AuthService) {}
+
+  canActivate() {
+    return this.authService.isLoggedIn();
+  }
+}
+```
+
+Angular will call that method for us when a guard is implemented as a class. Just like the previous guard, this one needs to be registered as a provider:
+
+```html
+@NgModule({
+  ...
+  providers: [
+    AuthService,
+    CanActivateViaAuthGuard
+  ]
+})
+export class AppModule {}
+```
+And can then be used on a route:
+
+```html
+{
+  path: '',
+  component: SomeComponent,
+  canActivate: [
+    'CanAlwaysActivateGuard',
+    CanActivateViaAuthGuard
+  ]
+}
+```
+
+### Deactivating Routes
+
+CanDeactivate gives us a chance to decide if we really want to navigate away from a route. This can be very useful, if for example we want to prevent our users from losing unsaved changes when filling out a form and accidently clicking on a button to cancel the process.
+
+```html
+import { CanDeactivate } from '@angular/router';
+import { CanDeactivateComponent } from './app/can-deactivate';
+
+export class ConfirmDeactivateGuard implements CanDeactivate<CanDeactivateComponent> {
+
+  canDeactivate(target: CanDeactivateComponent) {
+    if(target.hasChanges()){
+        return window.confirm('Do you really want to cancel?');
+    }
+    return true;
+  }
+}
+```
+
+ CanDeactivate<T> uses a generic, so we need to specify what component type we want to deactivate. Also this guard needs to be registered accordingly:
+
+ ```html
+ @NgModule({
+  ...
+  providers: [
+    ...
+    ConfirmDeactivateGuard
+  ]
+})
+export class AppModule {}
+ ```
+
+
+
 
 # Benefits of Angular 2 over Angular 1.x
 
@@ -105,6 +286,14 @@ A Promise handles a single event when an async operation completes or fails.
 3. http://www.cmarix.com/Know-how-Angular-2-is-different-from-AngularJS-1.x
 
 4. https://stackoverflow.com/questions/37364973/angular-promise-vs-observable
+
+5. https://blog.thoughtram.io/angular/2016/07/18/guards-in-angular-2.html
+
+6. https://www.sitepoint.com/angular-2-components-providers-classes-factories-values/
+
+7. https://angular-2-training-book.rangle.io/handout/features/interfaces.html
+
+8. https://angular.io/guide/pipes
 
 # Some Practices
 
