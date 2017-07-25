@@ -1,6 +1,6 @@
 # Example of Factory
 
-```html
+```javascript
 //UserFactory.js
 angular.module("myApp", [])
 
