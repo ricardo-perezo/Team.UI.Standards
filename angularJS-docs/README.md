@@ -1,13 +1,24 @@
 # ANGULARJS
 
+## Overview
 Here's a set of general concepts into angularjs environment which you need to know before we begin:
 
 > AngularJS's HTML **$compiler** allows the developer to teach the browser new HTML syntax. The compiler allows you to attach behavior to any HTML element
 or attribute and even create new HTML elements or attributes with custom behavior.
 
->The **ng-app** directive tells AngularJS that this is the root element of the AngularJS application.
+>You can think of a **module** as a container for the different parts of your app – controllers, services, filters, directives, etc. You have to be careful when you used 'cause sometimes people have the error to declare multiples times maybe for the confussion between declare & invoque a module.
 
->All AngularJS applications must have a root element. You can only have one ng-app directive in your HTML document. If more than one ng-app directive appears, the first appearance will be used.
+```javascript
+   //declare a new module
+   angular.module('softtekdemo', []);
+
+   //invoque/reference to module
+   angular.module('softtekdemo');
+```
+
+>The **ng-app** directive tells AngularJS that this is the root element of the AngularJS application. Here is the bridge between visual deposit & modules.
+
+>All AngularJS applications must have a root element. You can only have one ng-app directive in your HTML document. If more than one ng-app directive appears, the first appearance will be used. In this case mainApp is the name of module.
 
 ```html
 <div ng-app = "mainApp">
@@ -84,7 +95,9 @@ app.controller('myCtrl', function($scope) {
 </script>
 ```
 
-**Exercise 1:** Make your own controller for login handle & show a list of user according some basic crendentials logic. Try by yourself at first place dowloading the [esqueleton project](https://github.com/ricardo-perezo/Team.UI.Standards/blob/standars/uiDocs/angularJS/angularJS-docs/exercises/0/), working there and them see the [exercise sample solved](https://github.com/ricardo-perezo/Team.UI.Standards/blob/standars/uiDocs/angularJS/angularJS-docs/exercises/1/) to check your result.
+**Exercise 1:** Make your own controller for login handle & show a list of user according some basic crendentials logic. Try by yourself at first place dowloading the [esqueleton project](https://github.com/ricardo-perezo/Team.UI.Standards/blob/standars/uiDocs/angularJS/angularJS-docs/exercises/0/), working there and them see the [exercise sample solved](https://github.com/ricardo-perezo/Team.UI.Standards/blob/standars/uiDocs/angularJS/angularJS-docs/exercises/1/) to check your result. Some considerations.
+
+1. To implement the list of users you have to take a look in [Some Directives Pre-defined](### Some Directives Pre-defined) topic here in this doc; particularly in the **ng-repeat** & **ng-click** directive
 
 >**To execute the example just download this repository and then, in your terminal, type in their correct path $> npm start, if you have some import error in your web console, just drag & drop bower_components folder inside app folder if that folder is out of it.**
 
@@ -100,6 +113,40 @@ their case-sensitive camelCase normalized name (e.g. ngModel).
 2. Convert the :, -, or _ delimited name to camelCase.
 
 we say an element matches a directive when the directive is part of its declaration.
+
+### Some Directives Pre-defined
+
+- The **ngIf** directive removes or recreates a portion of the DOM tree based on an {expression}. If the expression assigned to ngIf evaluates to a false value then the element is removed from the DOM, otherwise a clone of the element is reinserted into the DOM.
+```html
+<element ng-if="expression"></element>
+```
+- The **ngRepeat** directive instantiates a template once per item from a collection. Each template instance gets its own scope, where the given loop variable is set to the current collection item, and $index is set to the item index or key.
+```html
+<element ng-repeat="item in collection">
+   {{item}}
+</element>
+```
+
+- The **ngClick** directive tells AngularJS what to do when an HTML element is clicked.
+
+```html
+<element ng-click="functionToCall()"></element>
+```
+
+- The **ngModel** directive binds an input, select, textarea (or custom form control) to a property on the scope using NgModelController, which is created and exposed by this directive.
+
+```html
+<element ng-model="scope_variable"></element>
+```
+
+ngModel is responsible for:
+
+1. Binding the view into the model, which other directives such as input, textarea or select require.
+2. Providing validation behavior (i.e. required, number, email, url).
+3. Keeping the state of the control (valid/invalid, dirty/pristine, touched/untouched, validation errors).
+4. Setting related css classes on the element (ng-valid, ng-invalid, ng-dirty, ng-pristine, ng-touched, ng-untouched, ng-empty, ng-not-empty) including animations.
+
+
 
 ### Restrict Types in Directives
 
@@ -124,9 +171,24 @@ The restrict option is used to specify how a directive can be invoked on the pag
 <!-- directive: softtek-directive -->
 ```
 
-[See the example of directives](https://github.com/ricardo-perezo/Team.UI.Standards/blob/standars/uiDocs/angularJS/angularJS-docs/directive.md)
+>## Types of Bindings in Directives & Components
 
-**Exercise 2:** Make your own directives of A & E types. Try for yourself at first place and them see the [exercise example](https://github.com/ricardo-perezo/Team.UI.Standards/blob/standars/uiDocs/angularJS/angularJS-docs/exercises/2/) to check your result.
+>- = : This serves to deliver a reference to an object. So whatever is being delivered is shared between components
+- @ : This serves to deliver a value. No binding of any kind
+- < : This is used for 1 way binding. The father transfers the child a value, but even if the child changes the new value does not travel to the father. However, if the father changes it, it does change in the child.
+- & : The latter alternative allows you to send a pointer to a function
+
+[See examples of directives](https://github.com/ricardo-perezo/Team.UI.Standards/blob/standars/uiDocs/angularJS/angularJS-docs/directive.md)
+
+**Exercise 2:** In the last section, you made a controller with a list of user functionality. Now It's time to separate that logic (just that logic) of the cotroller and create a directive of type 'E'. Some conditios for this:
+
+1. First we are going to change the logical we did in our controller, now the login logic will be replace by add credentials functionality into our array of objects (name/pass) inside the controller (you have to add logical for prevent repetition in the name of new credentials)
+2. Create a folder inside the folder app called directives and then another folder (user_list) inside directives
+3. Create new files (userList.js & userLit.html) for you directive into folder user_list
+4. When you declare your directive don't forget to include scope params to pass to our directive. include for now this
+5. Remove for our controller the displayable list of users and put it into new directive (userList)
+
+Use your project of the exercise 1 to start, then see the [exercise sample solved](https://github.com/ricardo-perezo/Team.UI.Standards/blob/standars/uiDocs/angularJS/angularJS-docs/exercises/2/) to check your result.
 
 ## Components
 
@@ -136,19 +198,22 @@ This makes it easier to write an app in a way that's similar to using Web Compon
 
 Advantages of Components:
 
--Simpler configuration than plain directives
--Promote sane defaults and best practices
--Optimized for component-based architecture
--Writing component directives will make it easier to upgrade to Angular
-
-### Types of Bindings in Components
-
-- = : This serves to deliver a reference to an object. So whatever is being delivered is shared between components
-- @ : This serves to deliver a value. No binding of any kind
-- < : This is used for 1 way binding. The father transfers the child a value, but even if the child changes the new value does not travel to the father. However, if the father changes it, it does change in the child.
-- & : The latter alternative allows you to send a pointer to a function
+- Simpler configuration than plain directives
+- Promote sane defaults and best practices
+- Optimized for component-based architecture
+- Writing component directives will make it easier to upgrade to Angular
 
 [See the example of component](https://github.com/ricardo-perezo/Team.UI.Standards/blob/standars/uiDocs/angularJS/angularJS-docs/component.md)
+
+**Exercise 3:** Now It's component creation time!. Here, we are going to build a new component (we are not modify the directive beceause we want both of them for comparison purpose). The component consist in make the edition functionality for our list of users. So it means the component needs to have a view where we can edit a single credential when we click on the element and then, the view component will be display. We have to consider the same validation rule in our edit component (while you are editing, elements with the same name are forbiden). Some considerations for the exercise:
+
+1. Create a folder called components into app folder
+2. Create folder called user_edit into components folder and then inside of user_edit put your required files for the component (userEdit.js, userEdit.html)
+3. Use ngIf to hide/show component according basic logical of edition
+4. You will have to modify userList to get access to the click event listener and retrieve the current user model selected to send to our component binding. The goal is use callback methods into the binding (&) of userList. Now when you have already the callback method binding inside of directive you have to set a scope variable (currentUser) in the controller to  send by one way binding (<) that variable to our new component and we finish. 
+
+Use your project of the exercise 2 to start, then see the [exercise sample solved](https://github.com/ricardo-perezo/Team.UI.Standards/blob/standars/uiDocs/angularJS/angularJS-docs/exercises/3/) to check your result.
+
 
 ## Directives vs Components
 
