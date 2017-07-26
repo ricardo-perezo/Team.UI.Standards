@@ -97,7 +97,7 @@ app.controller('myCtrl', function($scope) {
 
 **Exercise 1:** Make your own controller for login handle & show a list of user according some basic crendentials logic. Try by yourself at first place dowloading the [esqueleton project](https://github.com/ricardo-perezo/Team.UI.Standards/blob/standars/uiDocs/angularJS/angularJS-docs/exercises/0/), working there and them see the [exercise sample solved](https://github.com/ricardo-perezo/Team.UI.Standards/blob/standars/uiDocs/angularJS/angularJS-docs/exercises/1/) to check your result. Some considerations.
 
-1. To implement the list of users you have to take a look in [Some Directives Pre-defined](### Some Directives Pre-defined) topic here in this doc; particularly in the **ng-repeat** & **ng-click** directive
+1. To implement the list of users you have to take a look in [Some Directives Pre-defined](#some-directives-predefined) topic here in this doc; particularly in the **ng-repeat** & **ng-click** directive
 
 >**To execute the example just download this repository and then, in your terminal, type in their correct path $> npm start, if you have some import error in your web console, just drag & drop bower_components folder inside app folder if that folder is out of it.**
 
@@ -114,7 +114,7 @@ their case-sensitive camelCase normalized name (e.g. ngModel).
 
 we say an element matches a directive when the directive is part of its declaration.
 
-### Some Directives Pre-defined
+### Some Directives Predefined
 
 - The **ngIf** directive removes or recreates a portion of the DOM tree based on an {expression}. If the expression assigned to ngIf evaluates to a false value then the element is removed from the DOM, otherwise a clone of the element is reinserted into the DOM.
 ```html
@@ -210,7 +210,7 @@ Advantages of Components:
 1. Create a folder called components into app folder
 2. Create folder called user_edit into components folder and then inside of user_edit put your required files for the component (userEdit.js, userEdit.html)
 3. Use ngIf to hide/show component according basic logical of edition
-4. You will have to modify userList to get access to the click event listener and retrieve the current user model selected to send to our component binding. The goal is use callback methods into the binding (&) of userList. Now when you have already the callback method binding inside of directive you have to set a scope variable (currentUser) in the controller to  send by one way binding (<) that variable to our new component and we finish. 
+4. You will have to modify userList to get access to the click event listener and retrieve the current user model selected to send to our component binding. The goal is use callback methods into the binding (&) of userList. Now when you have already the callback method binding inside of directive you have to set a scope variable (currentUser) in the controller to  send by one way binding (<) that variable to our new component and we finish.
 
 Use your project of the exercise 2 to start, then see the [exercise sample solved](https://github.com/ricardo-perezo/Team.UI.Standards/blob/standars/uiDocs/angularJS/angularJS-docs/exercises/3/) to check your result.
 
