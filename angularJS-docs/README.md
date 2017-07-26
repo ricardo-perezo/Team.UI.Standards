@@ -16,45 +16,9 @@ or attribute and even create new HTML elements or attributes with custom behavio
    angular.module('softtekdemo');
 ```
 
->The **ng-app** directive tells AngularJS that this is the root element of the AngularJS application. Here is the bridge between visual deposit & modules.
-
->All AngularJS applications must have a root element. You can only have one ng-app directive in your HTML document. If more than one ng-app directive appears, the first appearance will be used. In this case mainApp is the name of module.
-
-```html
-<div ng-app = "mainApp">
-   ...
-   <div ng-view></div>
-
-</div>
-```
-
->AngularJS supports Single Page Application via multiple views on a single page. To do this AngularJS has provided **ng-view** and **ng-template** [directives](## Directives) and *$routeProvider* services.
-
->**ng-view** tag simply creates a place holder where a corresponding view (html or ng-template view) can be placed based on the configuration.
-
-```html
-<div ng-app = "mainApp">
-   ...
-   <div ng-view></div>
-
-</div>
-```
-
->**ng-template** in the other hand ussually it's used to define a visual space to deposit additional visual content on the view container, you can declare like this:
-
-```html
-<div ng-app = "mainApp">
-   ...
-
-   <script type = "text/ng-template" id = "addStudent.htm">
-      <h2> Add Student </h2>
-      {{message}}
-   </script>
-
-</div>  
- ```
-
  >**$scope** is an object that refers to the application model. It is an execution context for expressions. Scopes are arranged in hierarchical structure which mimic the DOM structure of the application. Scopes can watch expressions and propagate events.
+
+ >AngularJS supports Single Page Application via multiple views on a single page. To do this AngularJS has provided **ng-view** and **ng-template** [directives](#directives) and *$routeProvider* services.
 
 ## Controllers
 
@@ -97,7 +61,7 @@ app.controller('myCtrl', function($scope) {
 
 **Exercise 1:** Make your own controller for login handle & show a list of user according some basic crendentials logic. Try by yourself at first place dowloading the [esqueleton project](https://github.com/ricardo-perezo/Team.UI.Standards/blob/standars/uiDocs/angularJS/angularJS-docs/exercises/0/), working there and them see the [exercise sample solved](https://github.com/ricardo-perezo/Team.UI.Standards/blob/standars/uiDocs/angularJS/angularJS-docs/exercises/1/) to check your result. Some considerations.
 
-1. To implement the list of users you have to take a look in [Some Directives Pre-defined](#some-directives-predefined) topic here in this doc; particularly in the **ng-repeat** & **ng-click** directive
+1. To implement the list of users you have to take a look in [Some Directives Pre-defined](#some-directives-predefined) topic; particularly in the **ng-repeat** & **ng-click** directive.
 
 >**To execute the example just download this repository and then, in your terminal, type in their correct path $> npm start, if you have some import error in your web console, just drag & drop bower_components folder inside app folder if that folder is out of it.**
 
@@ -120,6 +84,48 @@ we say an element matches a directive when the directive is part of its declarat
 ```html
 <element ng-if="expression"></element>
 ```
+
+- The **ngApp** directive tells AngularJS that this is the root element of the AngularJS application. Here is the bridge between visual deposit & modules. All AngularJS applications must have a root element. You can only have one ng-app directive in your HTML document. If more than one ng-app directive appears, the first appearance will be used. In this case mainApp is the name of module.
+
+```html
+<div ng-app = "mainApp">
+   ...
+   <div ng-view></div>
+
+</div>
+```
+
+- **ngView** tag simply creates a place holder where a corresponding view (html or ng-template view) can be placed based on the configuration.
+
+```html
+<div ng-app = "mainApp">
+   ...
+   <div ng-view></div>
+
+</div>
+```
+
+- **ngTemplate** in the other hand ussually it's used to define a visual space to deposit additional visual content on the view container.
+
+```html
+<div ng-app = "mainApp">
+   ...
+
+   <script type = "text/ng-template" id = "addStudent.htm">
+      <h2> Add Student </h2>
+      {{message}}
+   </script>
+
+</div>
+```
+
+- The **ngController** directive attaches a controller class to the view. This is a key aspect of how angular supports the principles behind the Model-View-Controller design pattern.
+```html
+<element ng-controller="NameController">
+   ...
+</element>
+```
+
 - The **ngRepeat** directive instantiates a template once per item from a collection. Each template instance gets its own scope, where the given loop variable is set to the current collection item, and $index is set to the item index or key.
 ```html
 <element ng-repeat="item in collection">
