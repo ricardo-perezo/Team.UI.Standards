@@ -180,9 +180,9 @@ The restrict option is used to specify how a directive can be invoked on the pag
 >## Types of Bindings in Directives & Components
 
 >- = : This serves to deliver a reference to an object. So whatever is being delivered is shared between components
-- @ : This serves to deliver a value. No binding of any kind
-- < : This is used for 1 way binding. The father transfers the child a value, but even if the child changes the new value does not travel to the father. However, if the father changes it, it does change in the child.
-- & : The latter alternative allows you to send a pointer to a function
+>- @ : This serves to deliver a value. No binding of any kind
+>- < : This is used for 1 way binding. The father transfers the child a value, but even if the child changes the new value does not travel to the father. However, if the father changes it, it does change in the child.
+>- & : The latter alternative allows you to send a pointer to a function
 
 [See examples of directives](https://github.com/ricardo-perezo/Team.UI.Standards/blob/standars/uiDocs/angularJS/angularJS-docs/directive.md)
 
