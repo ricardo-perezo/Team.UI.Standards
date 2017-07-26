@@ -20,6 +20,12 @@ or attribute and even create new HTML elements or attributes with custom behavio
 
  >AngularJS supports Single Page Application via multiple views on a single page. To do this AngularJS has provided **ng-view** and **ng-template** [directives](#directives) and *$routeProvider* services.
 
+ >By the way **MVC** components in angular:
+
+>- Model — Models are the properties of a scope; scopes are attached to the DOM where scope properties are accessed through bindings.
+>- View — The template (HTML with data bindings) that is rendered into the View.
+>- Controller — The ngController directive specifies a Controller class; the class contains business logic behind the application to decorate the scope with functions and values
+
 ## Controllers
 
  Is defined by a JavaScript constructor function that is used to augment the AngularJS Scope. When a Controller is attached to the DOM via the
@@ -309,11 +315,23 @@ $http.get(url).success(function (data) {
 
 ## Factory
 
-When we know a service is a method on our module that takes a name and a function that defines the service and in the same way a factory is a method on our module and it also takes a name and a function, that defines the factory. We can inject and use that thing exactly the same way we did with the service. Now what is the difference here?
+As we know, a service is a method on our module that takes a name and a function that defines the service and in the same way a factory is a method on our module and it also takes a name and a function, that defines the factory. We can inject and use that thing exactly at the same way we did with the service. Now what is the difference here?
 
 Well, you might see that instead of working with this in the factory, we’re returning an object literal. Why is that? It turns out, a service is a constructor function whereas a factory is not.
 
 [See example of Factory](https://github.com/ricardo-perezo/Team.UI.Standards/blob/standars/uiDocs/angularJS/angularJS-docs/factory.md)
+
+**Exercise 4:** In this part we are going to modify again our previous exercise. Do you remember our array of users stored in the controller? Well It's time to move to a properly site, that magic place is a factory. Why a factory against service? [here's the reason](#factory-vs-services).
+
+So the exercise consist in move the provider of data (array of users) into our factory. Some considerations:
+
+1. Create a folder inside app called services
+2. Create a js file insider services (userServices.js)
+3. Try to simulate a http request doing an async method to handle errors promises (clue: you can use $q todo that)  
+4. Use if you can, the get-XXX name method convention in the factory (optional)
+5. Begin to change some methods to ecmascript way in your app.js & userservices.js (optional)
+
+Use your project of the exercise 3 to start, then see the [exercise sample solved](https://github.com/ricardo-perezo/Team.UI.Standards/blob/standars/uiDocs/angularJS/angularJS-docs/exercises/4/) to check your result.
 
 ## Factory vs Services
 
