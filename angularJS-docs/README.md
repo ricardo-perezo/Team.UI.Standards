@@ -69,7 +69,9 @@ app.controller('myCtrl', function($scope) {
 
 1. To implement the list of users you have to take a look in [Some Directives Pre-defined](#some-directives-predefined) topic; particularly in the **ng-repeat** & **ng-click** directive.
 
->**To execute the example just download this repository and then, in your terminal, type in their correct path $> npm start, if you have some import error in your web console, just drag & drop bower_components folder inside app folder if that folder is out of it.**
+>**To execute the example just download this repository and then, in your terminal, type in their correct path:**
+
+> **$> npm start**
 
 ## Directives
 
@@ -369,6 +371,61 @@ app.config(function($routeProvider) {
     });
 });
 ```
+
+>**Deprecation Notice**: In an effort to keep synchronized with router changes in the new Angular, this implementation of the Component Router (ngComponentRouter module) has been deprecated and will not receive further updates. We are investigating backporting the new Angular Router to AngularJS, but alternatively, use the ngRoute module or community developed projects (e.g. ui-router). [See info](https://docs.angularjs.org/guide/component-router).
+
+### Router with ui-router API
+
+**ui-router** is the defacto standard for routing in AngularJS. Influenced by the core angular router $route and the Ember Router, UI-Router has become the standard choice for routing non-trivial apps in AngularJS (1.x). Support properly well the component routing.
+
+To use ui-router in our index.html we have to change the container element with the **ng-view** directive for a new element:
+
+```html
+<div ng-app='softtekdemo'>
+  <ui-view></ui-view>
+</div>
+```
+
+Then in the app.js or other file where our root module was configure, we have to put this new configuration & remove old configuration if exist ($routerprovider).
+
+```javascript
+"use strict";
+
+var demo = angular.module('softtekdemo', ['ui.router']);
+
+demo.config(function($stateProvider, $urlRouterProvider) {
+    $stateProvider.state('someComponentOr Directive', {
+      url: '/blah/:parameter',
+      template: './templates/template.html',
+      controllerAs: "ctrl",
+      controller: function ($scope, $stateParams, myService) {
+        this.parameter = myService.getUser($stateParams.parameter)
+      }
+    })
+
+    .state('main', {
+      url: '/',
+      templateUrl : "./templates/main.html"
+    })
+
+    $urlRouterProvider.otherwise('/main');
+  })
+```
+
+
+**Exercise 5:** Modifying my files again? No way, but we have to. So here's the thing; In all the previous exercises we working directly on index.html to display our components & directives. Now It's time to put order and that's exactly where routes enter. Some considerations:
+
+1. Obviously we have to remove some stuffs of index.html & app.js and distribute in properly places
+2. We have a big deal here, 'cause we have two different Schemes in our app (directives & components). What's the big deal? When you try to use routes with a combinations of directives & components the $routerprovider is not enougth to attendant the components routes. So in this case to fix this problem we are going to use ui-router as our routing system.
+3. Create a folder inside app called templates
+4. Create a file inside templates called main.html. Put all elements that are previously in the tag ```<div ng-controller="SofttekCtrl">``` except the edition-user component tag.
+5. Create a new file inside templates folder called userEdition.html, Put your edition-user component tag only.
+6. Create two routes through $stateProvider (ui-router), one for our main template as our root router (/), and the second route for our component (here you most be careful 'cause you have to take in mind which exist binding parameter for this component), the clue is used combination of controller with $stateParams in the configuration of the route.
+7. Now in the index.html remove all children tags from ```<div ng-app='softtekdemo'> ```and put just the **ui-view** tag.
+8. Modify your bower.json adding **"angular-ui-router": "*"**  to your dependencies.
+9. Include the properly script path ui-router to your index.html
+
+Use your project of exercise 4 to start, then see the [exercise sample solved](https://github.com/ricardo-perezo/Team.UI.Standards/blob/standars/uiDocs/angularJS/angularJS-docs/exercises/5/) to check your result.
 
 ## Angular Material
 
