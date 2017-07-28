@@ -431,6 +431,32 @@ Use your project of exercise 4 to start, then see the [exercise sample solved](h
 
 AngularJS Material is both a UI Component framework and a reference implementation of Google's Material Design Specification. This project provides a set of reusable, well-tested, and accessible UI components based on Material Design. Material Design is a specification for a unified system of visual, motion, and interaction design that adapts across different devices and different screen sizes. To use this set of components we need to include into an angular-cli project just importing npm install material dependencies.
 
+**Exercise 6:** In this exercise will be more free, [check the documentation of angularjs-material](https://material.angularjs.org/latest/getting-started) and try to use some components in the last version of your project. Some considerations:
+
+1. Yo can install angular-material by bower or npm or use the cdn of google. For academic purposes we are going to use the last option. Just put in your index file:
+```html
+<head>
+  <!-- Angular Material CSS now available via Google CDN; version 0.9.4 used here -->
+  <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.css">
+</head>
+<body>
+
+  <!-- Angular Material Dependencies -->
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-aria.min.js"></script>
+
+  <!-- Angular Material Javascript now available via Google CDN; version 0.9.4 used here -->
+  <script src="//ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.js"></script>
+```
+2. Then you just have to inject the dependencie of angular-material in your root module:
+
+```javascript
+angular.module( 'YourApp', [ 'ngMaterial' ] )
+```
+3. The rest of exercise It's all yours, play with angular-material and get a fancy UI, have fun!
+
+Use your project of exercise 5 to start, then see the [exercise sample solved](https://github.com/ricardo-perezo/Team.UI.Standards/blob/standars/uiDocs/angularJS/angularJS-docs/exercises/6/) to check your result.
+
 ## Bibliography
 
 1. https://blog.thoughtram.io/angular/2015/07/07/service-vs-factory-once-and-for-all.html
