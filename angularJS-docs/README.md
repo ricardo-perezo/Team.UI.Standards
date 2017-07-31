@@ -457,6 +457,480 @@ angular.module( 'YourApp', [ 'ngMaterial' ] )
 
 Use your project of exercise 5 to start, then see the [exercise sample solved](https://github.com/ricardo-perezo/Team.UI.Standards/blob/standars/uiDocs/angularJS/angularJS-docs/exercises/6/) to check your result.
 
+## Unit Testing
+Work in Progress!
+
+
+## Design Patterns (DP) in angularJS
+
+>Note: This topic was exactly taked from [here](https://github.com/mgechev/angularjs-in-patterns#services-1).
+
+A software design pattern is a general reusable solution to a commonly occurring problem within a given context in software design. It is not a finished design that can be transformed directly into source or machine code. It is a description or template for how to solve a problem that can be used in many different situations. Design patterns are formalized best practices that the programmer can use to solve common problems when designing an application or system.
+
+### DP in Services
+
+#### Singleton
+>The singleton pattern is a design pattern that restricts the instantiation of a class to one object. This is useful when exactly one object is needed to coordinate actions across the system. The concept is sometimes generalized to systems that operate more efficiently when only one object exists, or that restrict the instantiation to a certain number of objects.
+
+We can think of each service as a singleton, because each service is instantiated no more than a single time. We can consider the cache as a singleton manager. There is a slight variation from the UML diagram illustrated above because instead of keeping static, private reference to the singleton inside its constructor function, we keep the reference inside the singleton manager (stated in the snippet above as cache).
+
+This way the services are actually singletons but not implemented through the Singleton pattern, which provides a few advantages over the standard implementation:
+
+- It improves the testability of your source code
+- You can control the creation of singleton objects (in our case the IoC container controls it for us, by instantiating the singletons lazy)
+
+#### Factory Method
+>The factory method pattern is a creational pattern, which uses factory methods to deal with the problem of creating objects without specifying the exact class of object that will be created. This is done by creating objects via a factory method, which is either specified in an interface (abstract class) and implemented in implementing classes (concrete classes); or implemented in a base class, which can be overridden when inherited in derived classes; rather than by a constructor.
+
+Lets consider the following snippet:
+
+```javascript
+myModule.config(function ($provide) {
+  $provide.provider('foo', function () {
+    var baz = 42;
+    return {
+      //Factory method
+      $get: function (bar) {
+        var baz = bar.baz();
+        return {
+          baz: baz
+        };
+      }
+    };
+  });
+});
+```
+
+In the code above we use the config callback in order to define new "provider". Provider is an object, which has a method called $get. Since in JavaScript we don't have interfaces and the language is duck-typed there is a convention to name the factory method of the providers that way.
+
+Each service, filter, directive and controller has a provider (i.e. object which factory method, called $get), which is responsible for creating the component's instance. We can call the provider a "ConcreteCreator" and the actual component, which is being created a "Product".
+
+There are a few benefits of using the factory method pattern in this case, because of the indirection it creates. This way the framework can take care of the boilerplates during the instantiation of new components like:
+
+- The most appropriate moment, when the component needs to be instantiated
+- Resolving all the dependencies required by the component
+- The number of instances the given component is allowed to have (for services and filters only a single one but multiple for the controllers)
+
+#### Decorator
+
+>The decorator pattern (also known as Wrapper, an alternative naming shared with the Adapter pattern) is a design pattern that allows behavior to be added to an individual object, either statically or dynamically, without affecting the behavior of other objects from the same class.
+
+AngularJS provides out-of-the-box way for extending and/or enhancing the functionality of already existing services. Using the method decorator of $provide you can create "wrapper" of any service you have previously defined or used by a third-party:
+
+```javascript
+myModule.controller('MainCtrl', function (foo) {
+  foo.bar();
+});
+
+myModule.factory('foo', function () {
+  return {
+    bar: function () {
+      console.log('I\'m bar');
+    },
+    baz: function () {
+      console.log('I\'m baz');
+    }
+  };
+});
+
+myModule.config(function ($provide) {
+  $provide.decorator('foo', function ($delegate) {
+    var barBackup = $delegate.bar;
+    $delegate.bar = function () {
+      console.log('Decorated');
+      barBackup.apply($delegate, arguments);
+    };
+    return $delegate;
+  });
+});
+```
+Using this pattern is especially useful when we need to modify the functionality of third party services. In cases when multiple similar decorations are required (like performance measurement of multiple methods, authorization, logging, etc.), we may have a lot of duplications and violate the DRY principle. In such cases it is useful to use aspect-oriented programming. The only AOP framework for AngularJS I'm aware of could be found at github.com/mgechev/angular-aop.
+
+#### Facade
+
+>A facade is an object that provides a simplified interface to a larger body of code, such as a class library. A facade can:
+1. Make a software library easier to use, understand and test, since the facade has convenient methods for common tasks
+2. Make the library more readable, for the same reason
+3. Reduce dependencies of outside code on the inner workings of a library, since most code uses the facade, thus allowing more flexibility in developing the system
+4. Wrap a poorly designed collection of APIs with a single well-designed API (as per task needs).
+
+There are a few facades in AngularJS. Each time you want to provide higher level API to given functionality you practically create a facade. For example to do a http request. Before the $http service, we had to use a XmlHttpRequest object to do that.
+
+With XmlHttpRequest:
+
+```javascript
+var http = new XMLHttpRequest(),
+    url = '/example/new',
+    params = encodeURIComponent(data);
+http.open("POST", url, true);
+
+http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+http.setRequestHeader("Content-length", params.length);
+http.setRequestHeader("Connection", "close");
+
+http.onreadystatechange = function () {
+  if(http.readyState == 4 && http.status == 200) {
+    alert(http.responseText);
+  }
+}
+http.send(params);
+```
+
+With $http service:
+```javascript
+$http.post('/someUrl', data)
+.then(function (response) {
+  alert(response);
+});
+```
+
+#### Proxy
+
+>A proxy, in its most general form, is a class functioning as an interface to something else. The proxy could interface to anything: a network connection, a large object in memory, a file, or some other resource that is expensive or impossible to duplicate. We can distinguish three different types of proxy: Virtual Proxy, Remote Proxy & Protection Proxy.
+
+
+For example when we have a variable in our $scope called user, we can think of this object as virtual proxy (a simple placeholder), which would be populated with the actual data once the client receives response by the server. Initially when the snippet above executes, the property user of the $scope object will be with value an empty object ({}), which means that user.name will be undefined and nothing will be rendered. Internally AngularJS will keep reference to this empty object. Once the server returns response for the get request, AngularJS will populate the object with the data, received from the server. During the next $digest loop AngularJS will detect change in $scope.user, which will lead to update of the view.
+
+#### Active Record
+
+>The Active Record object is an object, which carries both data and behavior. Usually most of the data in these objects is persistent, responsibility of the Active Record object is to take care of the communication with the database in order to create, update, retrieve or delete the data. It may delegate this responsibility to lower level objects but calls to instance or static methods of the active record object cause the database communication.
+
+AngularJS defines a service called $resource. In the current version of AngularJS (1.2+) it is being distributed in module outside of the AngularJS' core.
+
+```javascript
+var User = $resource('/users/:id'),
+    user = new User({
+      name: 'foo',
+      age : 42
+    });
+
+user.$save();
+```
+
+The call of $resource will create a constructor function for our model instances. Each of the model instances will have methods, which could be used for the different CRUD operations.
+
+#### Intercepting Filters
+
+>Create a chain of composable filters to implement common pre-processing and post-processing tasks during a Web page request.
+
+In some cases you need to do some kind of pre and/or post processing of HTTP requests. In the case of the Intercepting Filters you pre/post process given HTTP request/response in order to include logging, security or any other concern, which is influenced by the request body or headers. Basically the Intercepting Filters pattern include a chain of filters, each of which process data in given order. The output of each filter is input of the next one.
+
+In AngularJS we have the idea of the Intercepting Filters in $httpProvider. $httpProvider has an array property called interceptors, which contains a list of objects. Each object may have properties called: request, response, requestError, responseError.
+
+```javascript
+$httpProvider.interceptors.push(function($q, dependency1, dependency2) {
+  return {
+   'request': function(config) {
+       // same as above
+    },
+    'response': function(response) {
+       // same as above
+    }
+  };
+});
+```
+
+### Directives
+
+#### Composite
+
+>The composite pattern is a partitioning design pattern. The composite pattern describes that a group of objects are to be treated in the same way as a single instance of an object. The intent of a composite is to "compose" objects into tree structures to represent part-whole hierarchies.
+
+According to the Gang of Four, MVC is nothing more than combination of:
+
+- Strategy
+- Composite
+- Observer
+
+#### Interpreter
+
+>In computer programming, the interpreter pattern is a design pattern that specifies how to evaluate sentences in a language. The basic idea is to have a class for each symbol (terminal or nonterminal) in a specialized computer language. The syntax tree of a sentence in the language is an instance of the composite pattern and is used to evaluate (interpret) the sentence.
+
+Behind its $parse service, AngularJS provides its own implementation of interpreter of a DSL (Domain Specific Language). The used DSL is simplified and modified version of JavaScript. The main differences between the JavaScript expressions and AngularJS expressions that AngularJS expressions:
+
+- may contain filters with UNIX like pipe syntax
+- don't throw any errors
+- don't have any control flow statements (exceptions, loops, if statements although you can use the ternary operator)
+- are evaluated in given context (the context of the current $scope)
+
+#### Template View
+
+>Renders information into HTML by embedding markers in an HTML page.
+
+The dynamic page rendering is not that trivial thing. It is connected with a lot of string concatenations, manipulations and frustration. Far easier way to build your dynamic page is to write your markup and embed little expressions inside it, which are lately evaluated in given context and so the whole template is being compiled to its end format. In our case this format is going to be HTML (or even DOM). This is exactly what the template engines do - they take given DSL, evaluate it in the appropriate context and then turn it into its end format.
+
+Templates are very commonly used especially in the back-end. For example, you can embed PHP code inside HTML and create a dynamic page, you can use Smarty or you can use eRuby with Ruby in order to embed Ruby code inside your static pages.
+
+For example:
+
+```html
+<script type="template/mustache">
+  <h2>Names</h2>
+  {{#names}}
+    <strong>{{name}}</strong>
+  {{/names}}
+</script>
+```
+
+### Scope
+
+#### Observer
+
+>The observer pattern is a software design pattern in which an object, called the subject, maintains a list of its dependents, called observers, and notifies them automatically of any state changes, usually by calling one of their methods. It is mainly used to implement distributed event handling systems.
+
+There are two basic ways of communication between the scopes in an AngularJS application. The first one is calling methods of parent scope by a child scope. This is possible since the child scope inherits prototypically by its parent, as mentioned above. This allows communication in a single direction - child to parent. Some times it is necessary to call method of given child scope or notify it about a triggered event in the context of the parent scope. AngularJS provides built-in observer pattern, which allows this. Another possible use case, of the observer pattern, is when multiple scopes are interested in given event but the scope, in which context the event is triggered, is not aware of them. This allows decoupling between the different scopes, non of the scopes should be aware of the rest of the scopes.
+
+Each AngularJS scope has public methods called $on, $emit and $broadcast. The method $on accepts topic as first argument and callback as second. We can think of the callback as an observer - an object, which implements the Observer interface (in JavaScript the functions are first-class, so we can provide only implementation of the notify method):
+
+```JavaScript
+function ExampleCtrl($scope) {
+  $scope.$on('event-name', function handler() {
+    //body
+  });
+}
+```
+
+In this way the current scope "subscribes" to events of type event-name. When event-name is triggered in any parent or child scope of the given one, handler would be called.
+
+### Chain of Responsabilities
+
+>The chain-of-responsibility pattern is a design pattern consisting of a source of command objects and a series of processing objects. Each processing object contains logic that defines the types of command objects that it can handle; the rest are passed to the next processing object in the chain. A mechanism also exists for adding new processing objects to the end of this chain.
+
+As stated above the scopes in an AngularJS application form a hierarchy known as the scope chain. Some of the scopes are "isolated", which means that they don't inherit prototypically by their parent scope, but are connected to it via their $parent property.
+
+When $emit or $broadcast are called we can think of the scope chain as event bus, or even more accurately chain of responsibilities. Once the event is triggered it is emitted downwards or upwards (depending on the method, which was called). Each subsequent scope may:
+
+- Handle the event and pass it to the next scope in the chain
+- Handle the event and stop its propagation
+- Pass the event to the next scope in the chain without handling it
+- Stop the event propagation without handling it
+
+#### Command
+
+>In object-oriented programming, the command pattern is a behavioral design pattern in which an object is used to represent and encapsulate all the information needed to call a method at a later time. This information includes the method name, the object that owns the method and values for the method parameters.
+
+Each $scope has method called $watch. When the AngularJS compiler find the directive ng-bind it creates a new watcher of the expression foo + ' ' + bar | uppercase, i.e. ```javascript $scope.$watch("foo + ' ' + bar | uppercase", function () { /* body */ }); ```. The callback will be triggered each time the value of the expression change. In the current case the callback will update the value of the span.
+
+We can think of the watcher object as a command. The expression of the command is being evaluated on each "$digest" loop. Once AngularJS detects change in the expression, it invokes the listener function. The watcher command encapsulates the whole information required for watching given expression and delegates the execution of the command to the listener (the actual receiver). We can think of the $scope as the command's Client and the $digest loop as the command's Invoker.
+
+### Controllers
+
+#### Page Controller
+
+>An object that handles a request for a specific page or action on a Web site. Page Controller pattern accept input from the page request, invoke the requested actions on the model, and determine the correct view to use for the resulting page. Separate the dispatching logic from any view-related code
+
+Since there is a lot of duplicate behavior between the different pages (like rendering footers, headers, taking care of the user's session, etc.) page controllers can form a hierarchy. In AngularJS we have controllers, which are with more limited scope of responsibilities. They don't accept user requests, since this is responsibility of the $route or $state services and the page rendering is responsibility of the directives ng-view/ui-view.
+
+Similarly to the page controllers, AngularJS controllers handle user interactions, provide and update the models. The model is exposed to the view when it is being attached to the scope, all methods invoked by the view, in result of user actions, are ones, which are already attached to the scope. Another similarity between the page controllers and the AngularJS controllers is the hierarchy, which they form. It corresponds to the scope hierarchy. That way common actions can be isolated to the base controllers.
+
+## Best Practices
+
+### How to Use 'controllerAs' Sintax Properly?
+
+Angular is a very powerful framework, sometimes too powerful causing some developers to make some architecture mistakes. The two-way data binding and the power of directives are awesome, but you need to think about what are you doing and try to use some best practices to avoid common pitfalls during the development process.
+
+Controllers are class-like objects to “control” the model and update the view, and as you know everything is based around the magic and mystic $scope property.
+
+A good practice is to avoid binding everything to $scope, because too many bindings crowd the watch list of the $digest loop. To avoid that, Angular give us the controllerAs property.
+
+### Writing Controllers as Classes
+
+Depending if you have access to ES6 into your angularjs use ES5:
+
+```javascript
+var aClass = function () {
+  this.name = 'Class name';
+};
+var instance = new aClass();
+```
+Use this over $scope inside your class, It's much better.
+
+### How to Set Watch
+
+One question that comes to mind when you use this kind of syntax is how to use a $watch call because you need to inject $scope. We fight to remove the use of $scope, and now we need to inject it anyway.
+
+Well, we can keep using controllerAs and keep binding methods and properties to the this object that is binded to the current $scope. At the same time, we can keep the separation of concerns using $scope only for special cases, like $watch, $on, or $broadcast. Example:
+
+```javascript
+app.controller('Ctrl', function ($scope) {
+    this.name = 'name';
+
+    $scope.$watch(angular.bind(function () {
+      return this.title
+    }), function (newVal, oldVal) {
+
+    });
+});
+```
+### Single Responsability
+
+Define 1 component per file, recommended to be less than 400 lines of code. Why?
+
+- One component per file promotes easier unit testing and mocking.
+
+- One component per file makes it far easier to read, maintain, and avoid collisions with teams in source control.
+
+- One component per file avoids hidden bugs that often arise when combining components in a file where they may share variables, create unwanted closures, or unwanted coupling with dependencies.
+
+### Small Functions
+
+Define small functions, no more than 75 LOC (less is better). Why?
+
+- Small functions are easier to test, especially when they do one thing and serve one purpose.
+
+- Small functions promote reuse.
+
+- Small functions are easier to read.
+
+- Small functions are easier to maintain.
+
+- Small functions help avoid hidden bugs that come with large functions that share variables with external scope, create unwanted closures, or unwanted coupling with dependencies.
+
+### Javascript Scopes
+
+Wrap Angular components in an Immediately Invoked Function Expression (IIFE). Why?
+
+- An IIFE removes variables from the global scope. This helps prevent variables and function declarations from living longer than expected in the global scope, which also helps avoid variable collisions.
+
+- When your code is minified and bundled into a single file for deployment to a production server, you could have collisions of variables and many global variables. An IIFE protects you against both of these by providing variable scope for each file.
+
+```javascript
+/* avoid */
+// logger.js
+angular
+    .module('app')
+    .factory('logger', logger);
+
+// logger function is added as a global variable
+function logger() { }
+
+// storage.js
+angular
+    .module('app')
+    .factory('storage', storage);
+
+// storage function is added as a global variable
+function storage() { }
+```
+
+```javascript
+/**
+ * recommended
+ *
+ * no globals are left behind
+ */
+
+// logger.js
+(function() {
+    'use strict';
+
+    angular
+        .module('app')
+        .factory('logger', logger);
+
+    function logger() { }
+})();
+
+// storage.js
+(function() {
+    'use strict';
+
+    angular
+        .module('app')
+        .factory('storage', storage);
+
+    function storage() { }
+})();
+```
+
+### Avoid Naming Collisions
+
+Use unique naming conventions with separators for sub-modules.
+Why?: Unique names help avoid module name collisions. Separators help define modules and their submodule hierarchy. For example app may be your root module while app.dashboard and app.users may be modules that are used as dependencies of app.
+
+### Definitions (aka Setters)
+
+Declare modules without a variable using the setter syntax.
+
+Why?: With 1 component per file, there is rarely a need to introduce a variable for the module.
+
+```javascript
+/* avoid */
+var app = angular.module('app', [
+    'ngAnimate',
+    'ngRoute',
+    'app.shared',
+    'app.dashboard'
+]);
+```
+
+```javascript
+/* recommended */
+angular
+    .module('app', [
+        'ngAnimate',
+        'ngRoute',
+        'app.shared',
+        'app.dashboard'
+    ]);
+```
+
+### Bindable Members Up Top
+
+Place bindable members at the top of the controller, alphabetized, and not spread through the controller code. Why?
+
+- Placing bindable members at the top makes it easy to read and helps you instantly identify which members of the controller can be bound and used in the View.
+
+- Setting anonymous functions in-line can be easy, but when those functions are more than 1 line of code they can reduce the readability. Defining the functions below the bindable members (the functions will be hoisted) moves the implementation details down, keeps the bindable members up top, and makes it easier to read.
+
+```javascript
+/* avoid */
+function SessionsController() {
+    var vm = this;
+
+    vm.gotoSession = function() {
+      /* ... */
+    };
+    vm.refresh = function() {
+      /* ... */
+    };
+    vm.search = function() {
+      /* ... */
+    };
+    vm.sessions = [];
+    vm.title = 'Sessions';
+}
+```
+
+```javascript
+/* recommended */
+function SessionsController() {
+    var vm = this;
+
+    vm.gotoSession = gotoSession;
+    vm.refresh = refresh;
+    vm.search = search;
+    vm.sessions = [];
+    vm.title = 'Sessions';
+
+    ////////////
+
+    function gotoSession() {
+      /* */
+    }
+
+    function refresh() {
+      /* */
+    }
+
+    function search() {
+      /* */
+    }
+}
+```
+
+[For more good practice check this page](https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md)
+
 ## Bibliography
 
 1. https://blog.thoughtram.io/angular/2015/07/07/service-vs-factory-once-and-for-all.html
@@ -464,3 +938,6 @@ Use your project of exercise 5 to start, then see the [exercise sample solved](h
 3. https://www.w3schools.com/angular/angular_routing.asp
 4. http://tutorials.jenkov.com/angularjs/routes.html
 5. https://desarrolloweb.com/articulos/bindings-componentes-angularjs.html
+6. https://github.com/mgechev/angularjs-in-patterns#services-1
+7. https://www.toptal.com/angular-js/tips-and-practices
+8. https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md
