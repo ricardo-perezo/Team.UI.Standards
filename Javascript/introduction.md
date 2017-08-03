@@ -14,17 +14,18 @@
 * 9. [Arrays](#Arrays)
 	* 9.1. [Predefined Array Functions](#PredefinedArrayFunctions)
 * 10. [Functions](#Functions)
-	* 10.1. [Defined Function](#DefinedFunction)
-		* 10.1.1. [Arguments](#Arguments)
-		* 10.1.2. [Default Parametters](#DefaultParametters)
-		* 10.1.3. [Lazy Functions](#LazyFunctions)
-	* 10.2. [Anonymous Functions](#AnonymousFunctions)
+	* 10.1. [Anonymous Functions](#AnonymousFunctions)
+	* 10.2. [Defined Function](#DefinedFunction)
+		* 10.2.1. [Arguments](#Arguments)
+		* 10.2.2. [Default Parametters](#DefaultParametters)
+		* 10.2.3. [Lazy Functions](#LazyFunctions)
 	* 10.3. [Arrow Functions](#ArrowFunctions)
 * 11. [This](#This)
 * 12. [Scope](#Scope)
 	* 12.1. [Function scope](#Functionscope)
 	* 12.2. [Block scope](#Blockscope)
 	* 12.3. [Expression scope](#Expressionscope)
+	* 12.4. [Scope chain](#Scopechain)
 * 13. [Hoisting](#Hoisting)
 * 14. [Closure](#Closure)
 * 15. [Function Binding](#FunctionBinding)
@@ -263,7 +264,7 @@ var catNamesArray = ["Jacqueline", "Sophia", "Autumn"];
 ###  9.1. <a name='PredefinedArrayFunctions'></a>Predefined Array Functions
 
 ##  10. <a name='Functions'></a>Functions
-###  10.2. <a name='AnonymousFunctions'></a>Anonymous Functions
+###  10.1. <a name='AnonymousFunctions'></a>Anonymous Functions
 An anonymous function is a function without a function name:
 ```js
 function(myParam){
@@ -276,9 +277,9 @@ foo();
  })()//() it's the function caller
 ```
 
-###  10.1. <a name='DefinedFunction'></a>Defined Function
+###  10.2. <a name='DefinedFunction'></a>Defined Function
 
-####  10.1.1. <a name='Arguments'></a>Arguments
+####  10.2.1. <a name='Arguments'></a>Arguments
 The arguments of a function could be variable so we can use those dynamically with the object "arguments"
 ```js
 function sumAll(){
@@ -293,7 +294,7 @@ sumAll(1,2,3,4,5,6) //21
 
 ```
 
-####  10.1.2. <a name='DefaultParametters'></a>Default Parametters
+####  10.2.2. <a name='DefaultParametters'></a>Default Parametters
 
 ```js
 function myLog(param1=1,param2=2){
@@ -305,7 +306,7 @@ myLog(param2=8); // 8 , 2 the reasignation is not posible again
 myLog(); // 1 ,2
 ```
 
-####  10.1.3. <a name='LazyFunctions'></a>Lazy Functions
+####  10.2.3. <a name='LazyFunctions'></a>Lazy Functions
 When we use a function  as a default value of a param it's declared but not executed inst:
 
 ```js
@@ -348,13 +349,64 @@ var marie={name:"marie"}
 ``` 
 
 ##  12. <a name='Scope'></a>Scope
+The scope is the "domain" where a variable can be found. And have a flexible hierarchy.
+```
+Global
+│ 
+│
+└───Document
+     | 
+     └───function
+     |   └───block  
+     |   |   └───expresion
+     |   |   └───function 
+     |   └───expression 
+     |   └───...
+     └───block
+     |  └───...
+     |  └───...
+     └───expression
+```
+Exist some rules about the scope  access and it depends of kind of scope.
 
 ###  12.1. <a name='Functionscope'></a>Function scope
+The function can access to the father scope but the father can't acces to the function scope.
+
+```js
+var scope="global"; 
+function checkScope(){  
+  var scope="local";
+  var childScope="child"
+  console.log(scope);  
+  console.log(childScope);
+}
+  checkScope()//local child
+  console.log(scope)//global
+  console.log(childScope)
+  /*"ReferenceError: 'childScope' is undefined"*/
+```
 
 ###  12.2. <a name='Blockscope'></a>Block scope
+The block scope is every scope of a block defined by "{}" except the function 
+
+```js
+var scope=0;
+for(var i=0;i<10;i++){  
+  scope++;
+  var forScope='scoped';
+}
+console.log(scope)
+console.log(forScope)
+```
+```js
+if()
+
+```
+
 
 ###  12.3. <a name='Expressionscope'></a>Expression scope 
 
+###  12.4. <a name='Scopechain'></a>Scope chain
 ##  13. <a name='Hoisting'></a>Hoisting
 
 ##  14. <a name='Closure'></a>Closure 
