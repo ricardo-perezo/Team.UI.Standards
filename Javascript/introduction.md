@@ -25,19 +25,20 @@
 	* 12.1. [Function scope](#Functionscope)
 	* 12.2. [Block scope](#Blockscope)
 	* 12.3. [Expression scope](#Expressionscope)
-	* 12.4. [Scope chain](#Scopechain)
 * 13. [Hoisting](#Hoisting)
 * 14. [Closure](#Closure)
-* 15. [Function Binding](#FunctionBinding)
-* 16. [Objects](#Objects)
-	* 16.1. [Json](#Json)
-	* 16.2. [Object Object](#ObjectObject)
-	* 16.3. [Predefined object functions](#Predefinedobjectfunctions)
-* 17. [Prototype](#Prototype)
-* 18. [Method Chaining](#MethodChaining)
-* 19. [Object Literals](#ObjectLiterals)
-* 20. [The Module Pattern](#TheModulePattern)
-* 21. [Module Pattern Variations](#ModulePatternVariations)
+* 15. [Objects](#Objects)
+	* 15.1. [Function Binding](#FunctionBinding)
+	* 15.2. [Json](#Json)
+	* 15.3. [Object Object](#ObjectObject)
+	* 15.4. [Predefined object functions](#Predefinedobjectfunctions)
+* 16. [Prototype](#Prototype)
+* 17. [Method Chaining](#MethodChaining)
+* 18. [Standard Built-in Object Methods](#StandardBuilt-inObjectMethods)
+* 19. [Standard Built-in Array Methods](#StandardBuilt-inArrayMethods)
+* 20. [Object Literals](#ObjectLiterals)
+* 21. [The Module Pattern](#TheModulePattern)
+* 22. [Module Pattern Variations](#ModulePatternVariations)
 
 <!-- vscode-markdown-toc-config
 	numbering=true
@@ -264,6 +265,8 @@ var catNamesArray = ["Jacqueline", "Sophia", "Autumn"];
 ###  9.1. <a name='PredefinedArrayFunctions'></a>Predefined Array Functions
 
 ##  10. <a name='Functions'></a>Functions
+
+
 ###  10.1. <a name='AnonymousFunctions'></a>Anonymous Functions
 An anonymous function is a function without a function name:
 ```js
@@ -278,6 +281,7 @@ foo();
 ```
 
 ###  10.2. <a name='DefinedFunction'></a>Defined Function
+
 
 ####  10.2.1. <a name='Arguments'></a>Arguments
 The arguments of a function could be variable so we can use those dynamically with the object "arguments"
@@ -349,7 +353,7 @@ var marie={name:"marie"}
 ``` 
 
 ##  12. <a name='Scope'></a>Scope
-The scope is the "domain" where a variable can be found. And have a flexible hierarchy.
+The scope is the "domain" where a variable can be found. It have a flexible hierarchy.
 ```
 Global
 │ 
@@ -367,7 +371,6 @@ Global
      |  └───...
      └───expression
 ```
-Exist some rules about the scope  access and it depends of kind of scope.
 
 ###  12.1. <a name='Functionscope'></a>Function scope
 The function can access to the father scope but the father can't acces to the function scope.
@@ -388,6 +391,7 @@ function checkScope(){
 
 ###  12.2. <a name='Blockscope'></a>Block scope
 The block scope is every scope of a block defined by "{}" except the function 
+and can be excecuted or not.
 
 ```js
 var scope=0;
@@ -399,43 +403,177 @@ console.log(scope)
 console.log(forScope)
 ```
 ```js
-if()
-
+var scope="global"
+if(true){
+ var local="local"
+}
+else {
+  var anotherLocal="else"//it's created but not assigned  
+}
+console.log(scope)//global
+console.log(local)// local
+console.log(anotherLocal)//undefined
 ```
 
 
 ###  12.3. <a name='Expressionscope'></a>Expression scope 
+The expression inside of a parentesis "()" it's in another scope and it's interpreted as a parameter to be executed so if we use the call expression "()" will be executed. This kind of scope  run, when it stop the all variables inside will be destroyed.
+```js
+(function(){var expressionScoped="this will never be showed"})
+console.log(expressionScoped)//error
+```
+```js
+(function(){var expressionScoped="i'm global hidden"
+console.log(expressionScoped)//"i'm global hidden"
+})()
+console.log(expressionScoped)//error
+```
+You can recover a var  from this scope  with a return. This practice is common to create a module  without nest the global scope
+```js
+var expressionResult= (function(){var expressionScoped="maybe you see me"
+        return expressionScoped
+})()
+console.log(expressionResult)//"maybe you see me"
+```
 
-###  12.4. <a name='Scopechain'></a>Scope chain
 ##  13. <a name='Hoisting'></a>Hoisting
+The hoisting consist in a transparent action of the interpreter on the script  execution time where every definition of a variable is positioned in the begin of a scope. Be aware that the definition is relocated but not the assignation.
+```js
+console.log(defintion)//undefined
+var definition= "i'm definded";
+console.log(definition)// i'm defined
+```
+Keep in mind the rule of a function scope, you can acces to the father scope but not to the father can't access to child scope.
+```js
+console.log(defintion);//error
+function define(){
+console.log(definition);
+var definition= "i'm definded"; 
+}
+define()//undefined
+console.log(definition);// error
+```
+Now it's possible use "let" to declare a variable avoiding the hoisting.
+```js
+console.log(defintion)//error
+let definition= "i'm definded";
+console.log(definition)// i'm defined
+```
+This is helpful to use a function before theclare it.
+```js
+hello();//hello world
+function hello(){
+  console.log("hello world");
+}
+```
+
 
 ##  14. <a name='Closure'></a>Closure 
+To understad understand the closure it's necessary remember the function scope rule, with this we can create a closure. A closure is a scope where the access is restricted.
+```js
+var scope="this is a global scope";
+function checkScope(){
+    var scope="local scope";
+    return function(){
+      return scope;
+    }
+}
+console.log(checkScope())//"local scope"
+console.log(scope)//"this is a global scope"
+```
+If the closure its implemented with the expression scope the result it's very interesting
+```js
+var scope=(
+  function(){
+    var localScope=0;
+    var operations={
+      add:function(){
+        localScope++;
+      },
+      substract:function(){
+        localScope--;
+      },
+      check:function(){
+        console.log(localScope);
+      }
+    }
+    return operations
+  }
+)()
+scope.check()
+scope.add()
+scope.add()
+scope.check()
+scope.substract()
+scope.check()
+```
+As you can see  this is a way to "private" a variable from the scope and it will exist all the time.
+This look great but to still existing a problem. 
+```js
+var scope=(
+  function(){
+    var localScope=0;
+    var operations={
+      add:function(){
+        localScope++;
+      },
+      substract:function(){
+        localScope--;
+      },
+      check:function(){
+        console.log(localScope);
+      }
+    }
+    return operations
+  }
+)()
+scope.check()
+scope.add()
+scope=0;
+console.log(scope)// 0 
+```
+All our closured scope lost. To resolve this it's posible use "const" 
+```js
+const scope=(
+  function(){
+    var localScope=0;
+    var operations={
+      add:function(){
+        localScope++;
+      },
+      substract:function(){
+        localScope--;
+      },
+      check:function(){
+        console.log(localScope);
+      }
+    }
+    return operations
+  }
+)()
+scope.check()
+scope.add()
+scope=0;//error
+```
+On this way our scope it's safe of modifications.PD: it's possible that opera mini and some transpilers like babbel or typescript had an error to try this solution.
+##  15. <a name='Objects'></a>Objects
 
-##  15. <a name='FunctionBinding'></a>Function Binding
 
-##  16. <a name='Objects'></a>Objects
+###  15.1. <a name='FunctionBinding'></a>Function Binding
 
-###  16.1. <a name='Json'></a>Json
+###  15.2. <a name='Json'></a>Json
 
-###  16.2. <a name='ObjectObject'></a>Object Object
+###  15.3. <a name='ObjectObject'></a>Object Object
 
-###  16.3. <a name='Predefinedobjectfunctions'></a>Predefined object functions 
+###  15.4. <a name='Predefinedobjectfunctions'></a>Predefined object functions 
 
-##  17. <a name='Prototype'></a>Prototype 
+##  16. <a name='Prototype'></a>Prototype 
 
-##  18. <a name='MethodChaining'></a>Method Chaining 
+##  17. <a name='MethodChaining'></a>Method Chaining 
 
-##Standard Built-in Object Methods
+##  18. <a name='StandardBuilt-inObjectMethods'></a>Standard Built-in Object Methods
 
-##Standard Built-in Array Methods
-
-# Functional Programming
-
-
-# Modules Pattern
-##  19. <a name='ObjectLiterals'></a>Object Literals
-##  20. <a name='TheModulePattern'></a>The Module Pattern
-##  21. <a name='ModulePatternVariations'></a>Module Pattern Variations
+##  19. <a name='StandardBuilt-inArrayMethods'></a>Standard Built-in Array Methods
 
 # Note: 
 All the clean code steps will be implicits on the code examples, for more detailed info please visit [Idiomatic clean code](https://github.com/rwaldron/idiomatic.js)
