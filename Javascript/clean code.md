@@ -1,62 +1,61 @@
 <!-- vscode-markdown-toc -->
-* 1. [Table of Contents](#TableofContents)
-* 2. [Introduction](#Introduction)
-* 3. [**Variables**](#Variables)
-	* 3.1. [Use meaningful and pronounceable variable names](#Usemeaningfulandpronounceablevariablenames)
-	* 3.2. [Use the same vocabulary for the same type of variable](#Usethesamevocabularyforthesametypeofvariable)
-	* 3.3. [Use searchable names](#Usesearchablenames)
-	* 3.4. [Use explanatory variables](#Useexplanatoryvariables)
-	* 3.5. [Avoid Mental Mapping](#AvoidMentalMapping)
-	* 3.6. [Don't add unneeded context](#Dontaddunneededcontext)
-	* 3.7. [Use default arguments instead of short circuiting or conditionals](#Usedefaultargumentsinsteadofshortcircuitingorconditionals)
-* 4. [**Functions**](#Functions)
-	* 4.1. [Function arguments (2 or fewer ideally)](#Functionarguments2orfewerideally)
-	* 4.2. [Functions should do one thing](#Functionsshoulddoonething)
-	* 4.3. [Function names should say what they do](#Functionnamesshouldsaywhattheydo)
-	* 4.4. [Functions should only be one level of abstraction](#Functionsshouldonlybeonelevelofabstraction)
-	* 4.5. [Remove duplicate code](#Removeduplicatecode)
-	* 4.6. [Set default objects with Object.assign](#SetdefaultobjectswithObject.assign)
-	* 4.7. [Don't use flags as function parameters](#Dontuseflagsasfunctionparameters)
-	* 4.8. [Avoid Side Effects (part 1)](#AvoidSideEffectspart1)
-	* 4.9. [Avoid Side Effects (part 2)](#AvoidSideEffectspart2)
-	* 4.10. [Don't write to global functions](#Dontwritetoglobalfunctions)
-	* 4.11. [Favor functional programming over imperative programming](#Favorfunctionalprogrammingoverimperativeprogramming)
-	* 4.12. [Encapsulate conditionals](#Encapsulateconditionals)
-	* 4.13. [Avoid negative conditionals](#Avoidnegativeconditionals)
-	* 4.14. [Avoid conditionals](#Avoidconditionals)
-	* 4.15. [Avoid type-checking (part 1)](#Avoidtype-checkingpart1)
-	* 4.16. [Avoid type-checking (part 2)](#Avoidtype-checkingpart2)
-	* 4.17. [Don't over-optimize](#Dontover-optimize)
-	* 4.18. [Remove dead code](#Removedeadcode)
-* 5. [**Objects and Data Structures**](#ObjectsandDataStructures)
-	* 5.1. [Use getters and setters](#Usegettersandsetters)
-	* 5.2. [Make objects have private members](#Makeobjectshaveprivatemembers)
-* 6. [**Classes**](#Classes)
-	* 6.1. [Prefer ES2015/ES6 classes over ES5 plain functions](#PreferES2015ES6classesoverES5plainfunctions)
-	* 6.2. [Use method chaining](#Usemethodchaining)
-	* 6.3. [Prefer composition over inheritance](#Prefercompositionoverinheritance)
-* 7. [**SOLID**](#SOLID)
-	* 7.1. [Single Responsibility Principle (SRP)](#SingleResponsibilityPrincipleSRP)
-	* 7.2. [Open/Closed Principle (OCP)](#OpenClosedPrincipleOCP)
-	* 7.3. [Liskov Substitution Principle (LSP)](#LiskovSubstitutionPrincipleLSP)
-	* 7.4. [Interface Segregation Principle (ISP)](#InterfaceSegregationPrincipleISP)
-	* 7.5. [Dependency Inversion Principle (DIP)](#DependencyInversionPrincipleDIP)
-* 8. [**Testing**](#Testing)
-	* 8.1. [Single concept per test](#Singleconceptpertest)
-* 9. [**Concurrency**](#Concurrency)
-	* 9.1. [Use Promises, not callbacks](#UsePromisesnotcallbacks)
-	* 9.2. [Async/Await are even cleaner than Promises](#AsyncAwaitareevencleanerthanPromises)
-* 10. [**Error Handling**](#ErrorHandling)
-	* 10.1. [Don't ignore caught errors](#Dontignorecaughterrors)
-	* 10.2. [Don't ignore rejected promises](#Dontignorerejectedpromises)
-* 11. [**Formatting**](#Formatting)
-	* 11.1. [Use consistent capitalization](#Useconsistentcapitalization)
-	* 11.2. [Function callers and callees should be close](#Functioncallersandcalleesshouldbeclose)
-* 12. [**Comments**](#Comments)
-	* 12.1. [Only comment things that have business logic complexity.](#Onlycommentthingsthathavebusinesslogiccomplexity.)
-	* 12.2. [Don't leave commented out code in your codebase](#Dontleavecommentedoutcodeinyourcodebase)
-	* 12.3. [Don't have journal comments](#Donthavejournalcomments)
-	* 12.4. [Avoid positional markers](#Avoidpositionalmarkers)
+* 1. [Introduction](#Introduction)
+* 2. [**Variables**](#Variables)
+	* 2.1. [Use meaningful and pronounceable variable names](#Usemeaningfulandpronounceablevariablenames)
+	* 2.2. [Use the same vocabulary for the same type of variable](#Usethesamevocabularyforthesametypeofvariable)
+	* 2.3. [Use searchable names](#Usesearchablenames)
+	* 2.4. [Use explanatory variables](#Useexplanatoryvariables)
+	* 2.5. [Avoid Mental Mapping](#AvoidMentalMapping)
+	* 2.6. [Don't add unneeded context](#Dontaddunneededcontext)
+	* 2.7. [Use default arguments instead of short circuiting or conditionals](#Usedefaultargumentsinsteadofshortcircuitingorconditionals)
+* 3. [**Functions**](#Functions)
+	* 3.1. [Function arguments (2 or fewer ideally)](#Functionarguments2orfewerideally)
+	* 3.2. [Functions should do one thing](#Functionsshoulddoonething)
+	* 3.3. [Function names should say what they do](#Functionnamesshouldsaywhattheydo)
+	* 3.4. [Functions should only be one level of abstraction](#Functionsshouldonlybeonelevelofabstraction)
+	* 3.5. [Remove duplicate code](#Removeduplicatecode)
+	* 3.6. [Set default objects with Object.assign](#SetdefaultobjectswithObject.assign)
+	* 3.7. [Don't use flags as function parameters](#Dontuseflagsasfunctionparameters)
+	* 3.8. [Avoid Side Effects (part 1)](#AvoidSideEffectspart1)
+	* 3.9. [Avoid Side Effects (part 2)](#AvoidSideEffectspart2)
+	* 3.10. [Don't write to global functions](#Dontwritetoglobalfunctions)
+	* 3.11. [Favor functional programming over imperative programming](#Favorfunctionalprogrammingoverimperativeprogramming)
+	* 3.12. [Encapsulate conditionals](#Encapsulateconditionals)
+	* 3.13. [Avoid negative conditionals](#Avoidnegativeconditionals)
+	* 3.14. [Avoid conditionals](#Avoidconditionals)
+	* 3.15. [Avoid type-checking (part 1)](#Avoidtype-checkingpart1)
+	* 3.16. [Avoid type-checking (part 2)](#Avoidtype-checkingpart2)
+	* 3.17. [Don't over-optimize](#Dontover-optimize)
+	* 3.18. [Remove dead code](#Removedeadcode)
+* 4. [**Objects and Data Structures**](#ObjectsandDataStructures)
+	* 4.1. [Use getters and setters](#Usegettersandsetters)
+	* 4.2. [Make objects have private members](#Makeobjectshaveprivatemembers)
+* 5. [**Classes**](#Classes)
+	* 5.1. [Prefer ES2015/ES6 classes over ES5 plain functions](#PreferES2015ES6classesoverES5plainfunctions)
+	* 5.2. [Use method chaining](#Usemethodchaining)
+	* 5.3. [Prefer composition over inheritance](#Prefercompositionoverinheritance)
+* 6. [**SOLID**](#SOLID)
+	* 6.1. [Single Responsibility Principle (SRP)](#SingleResponsibilityPrincipleSRP)
+	* 6.2. [Open/Closed Principle (OCP)](#OpenClosedPrincipleOCP)
+	* 6.3. [Liskov Substitution Principle (LSP)](#LiskovSubstitutionPrincipleLSP)
+	* 6.4. [Interface Segregation Principle (ISP)](#InterfaceSegregationPrincipleISP)
+	* 6.5. [Dependency Inversion Principle (DIP)](#DependencyInversionPrincipleDIP)
+* 7. [**Testing**](#Testing)
+	* 7.1. [Single concept per test](#Singleconceptpertest)
+* 8. [**Concurrency**](#Concurrency)
+	* 8.1. [Use Promises, not callbacks](#UsePromisesnotcallbacks)
+	* 8.2. [Async/Await are even cleaner than Promises](#AsyncAwaitareevencleanerthanPromises)
+* 9. [**Error Handling**](#ErrorHandling)
+	* 9.1. [Don't ignore caught errors](#Dontignorecaughterrors)
+	* 9.2. [Don't ignore rejected promises](#Dontignorerejectedpromises)
+* 10. [**Formatting**](#Formatting)
+	* 10.1. [Use consistent capitalization](#Useconsistentcapitalization)
+	* 10.2. [Function callers and callees should be close](#Functioncallersandcalleesshouldbeclose)
+* 11. [**Comments**](#Comments)
+	* 11.1. [Only comment things that have business logic complexity.](#Onlycommentthingsthathavebusinesslogiccomplexity.)
+	* 11.2. [Don't leave commented out code in your codebase](#Dontleavecommentedoutcodeinyourcodebase)
+	* 11.3. [Don't have journal comments](#Donthavejournalcomments)
+	* 11.4. [Avoid positional markers](#Avoidpositionalmarkers)
 
 <!-- vscode-markdown-toc-config
 	numbering=true
@@ -66,10 +65,10 @@
 
 
 
-##  2. <a name='Introduction'></a>Introduction
+##  1. <a name='Introduction'></a>Introduction
 
-##  3. <a name='Variables'></a>**Variables**
-###  3.1. <a name='Usemeaningfulandpronounceablevariablenames'></a>Use meaningful and pronounceable variable names
+##  2. <a name='Variables'></a>**Variables**
+###  2.1. <a name='Usemeaningfulandpronounceablevariablenames'></a>Use meaningful and pronounceable variable names
 
 **Bad:**
 ```javascript
@@ -81,7 +80,7 @@ const yyyymmdstr = moment().format('YYYY/MM/DD');
 const currentDate = moment().format('YYYY/MM/DD');
 ```
 
-###  3.2. <a name='Usethesamevocabularyforthesametypeofvariable'></a>Use the same vocabulary for the same type of variable
+###  2.2. <a name='Usethesamevocabularyforthesametypeofvariable'></a>Use the same vocabulary for the same type of variable
 
 **Bad:**
 ```javascript
@@ -95,7 +94,7 @@ getCustomerRecord();
 getUser();
 ```
 
-###  3.3. <a name='Usesearchablenames'></a>Use searchable names
+###  2.3. <a name='Usesearchablenames'></a>Use searchable names
 We will read more code than we will ever write. It's important that the code we
 do write is readable and searchable. By *not* naming variables that end up
 being meaningful for understanding our program, we hurt our readers.
@@ -120,7 +119,7 @@ setTimeout(blastOff, MILLISECONDS_IN_A_DAY);
 
 ```
 
-###  3.4. <a name='Useexplanatoryvariables'></a>Use explanatory variables
+###  2.4. <a name='Useexplanatoryvariables'></a>Use explanatory variables
 **Bad:**
 ```javascript
 const address = 'One Infinite Loop, Cupertino 95014';
@@ -136,7 +135,7 @@ const [, city, zipCode] = address.match(cityZipCodeRegex) || [];
 saveCityZipCode(city, zipCode);
 ```
 
-###  3.5. <a name='AvoidMentalMapping'></a>Avoid Mental Mapping
+###  2.5. <a name='AvoidMentalMapping'></a>Avoid Mental Mapping
 Explicit is better than implicit.
 
 **Bad:**
@@ -166,7 +165,7 @@ locations.forEach((location) => {
 });
 ```
 
-###  3.6. <a name='Dontaddunneededcontext'></a>Don't add unneeded context
+###  2.6. <a name='Dontaddunneededcontext'></a>Don't add unneeded context
 If your class/object name tells you something, don't repeat that in your
 variable name.
 
@@ -196,7 +195,7 @@ function paintCar(car) {
 }
 ```
 
-###  3.7. <a name='Usedefaultargumentsinsteadofshortcircuitingorconditionals'></a>Use default arguments instead of short circuiting or conditionals
+###  2.7. <a name='Usedefaultargumentsinsteadofshortcircuitingorconditionals'></a>Use default arguments instead of short circuiting or conditionals
 Default arguments are often cleaner than short circuiting. Be aware that if you
 use them, your function will only provide default values for `undefined`
 arguments. Other "falsy" values such as `''`, `""`, `false`, `null`, `0`, and
@@ -219,8 +218,8 @@ function createMicrobrewery(breweryName = 'Hipster Brew Co.') {
 
 ```
 
-##  4. <a name='Functions'></a>**Functions**
-###  4.1. <a name='Functionarguments2orfewerideally'></a>Function arguments (2 or fewer ideally)
+##  3. <a name='Functions'></a>**Functions**
+###  3.1. <a name='Functionarguments2orfewerideally'></a>Function arguments (2 or fewer ideally)
 Limiting the amount of function parameters is incredibly important because it
 makes testing your function easier. Having more than three leads to a
 combinatorial explosion where you have to test tons of different cases with
@@ -270,7 +269,7 @@ createMenu({
 ```
 
 
-###  4.2. <a name='Functionsshoulddoonething'></a>Functions should do one thing
+###  3.2. <a name='Functionsshoulddoonething'></a>Functions should do one thing
 This is by far the most important rule in software engineering. When functions
 do more than one thing, they are harder to compose, test, and reason about.
 When you can isolate a function to just one action, they can be refactored
@@ -303,7 +302,7 @@ function isActiveClient(client) {
 }
 ```
 
-###  4.3. <a name='Functionnamesshouldsaywhattheydo'></a>Function names should say what they do
+###  3.3. <a name='Functionnamesshouldsaywhattheydo'></a>Function names should say what they do
 
 **Bad:**
 ```javascript
@@ -327,7 +326,7 @@ const date = new Date();
 addMonthToDate(1, date);
 ```
 
-###  4.4. <a name='Functionsshouldonlybeonelevelofabstraction'></a>Functions should only be one level of abstraction
+###  3.4. <a name='Functionsshouldonlybeonelevelofabstraction'></a>Functions should only be one level of abstraction
 When you have more than one level of abstraction your function is usually
 doing too much. Splitting up functions leads to reusability and easier
 testing.
@@ -394,7 +393,7 @@ function parseBetterJSAlternative(code) {
 }
 ```
 
-###  4.5. <a name='Removeduplicatecode'></a>Remove duplicate code
+###  3.5. <a name='Removeduplicatecode'></a>Remove duplicate code
 Do your absolute best to avoid duplicate code. Duplicate code is bad because it
 means that there's more than one place to alter something if you need to change
 some logic.
@@ -475,7 +474,7 @@ function showEmployeeList(employees) {
 }
 ```
 
-###  4.6. <a name='SetdefaultobjectswithObject.assign'></a>Set default objects with Object.assign
+###  3.6. <a name='SetdefaultobjectswithObject.assign'></a>Set default objects with Object.assign
 
 **Bad:**
 ```javascript
@@ -521,7 +520,7 @@ createMenu(menuConfig);
 ```
 
 
-###  4.7. <a name='Dontuseflagsasfunctionparameters'></a>Don't use flags as function parameters
+###  3.7. <a name='Dontuseflagsasfunctionparameters'></a>Don't use flags as function parameters
 Flags tell your user that this function does more than one thing. Functions should do one thing. Split out your functions if they are following different code paths based on a boolean.
 
 **Bad:**
@@ -546,7 +545,7 @@ function createTempFile(name) {
 }
 ```
 
-###  4.8. <a name='AvoidSideEffectspart1'></a>Avoid Side Effects (part 1)
+###  3.8. <a name='AvoidSideEffectspart1'></a>Avoid Side Effects (part 1)
 A function produces a side effect if it does anything other than take a value in
 and return another value or values. A side effect could be writing to a file,
 modifying some global variable, or accidentally wiring all your money to a
@@ -590,7 +589,7 @@ console.log(name); // 'Ryan McDermott';
 console.log(newName); // ['Ryan', 'McDermott'];
 ```
 
-###  4.9. <a name='AvoidSideEffectspart2'></a>Avoid Side Effects (part 2)
+###  3.9. <a name='AvoidSideEffectspart2'></a>Avoid Side Effects (part 2)
 In JavaScript, primitives are passed by value and objects/arrays are passed by
 reference. In the case of objects and arrays, if your function makes a change
 in a shopping cart array, for example, by adding an item to purchase,
@@ -638,7 +637,7 @@ const addItemToCart = (cart, item) => {
 ```
 
 
-###  4.10. <a name='Dontwritetoglobalfunctions'></a>Don't write to global functions
+###  3.10. <a name='Dontwritetoglobalfunctions'></a>Don't write to global functions
 Polluting globals is a bad practice in JavaScript because you could clash with another
 library and the user of your API would be none-the-wiser until they get an
 exception in production. Let's think about an example: what if you wanted to
@@ -667,7 +666,7 @@ class SuperArray extends Array {
 }
 ```
 
-###  4.11. <a name='Favorfunctionalprogrammingoverimperativeprogramming'></a>Favor functional programming over imperative programming
+###  3.11. <a name='Favorfunctionalprogrammingoverimperativeprogramming'></a>Favor functional programming over imperative programming
 JavaScript isn't a functional language in the way that Haskell is, but it has
 a functional flavor to it. Functional languages are cleaner and easier to test.
 Favor this style of programming when you can.
@@ -722,7 +721,7 @@ const totalOutput = programmerOutput
   .reduce((acc, linesOfCode) => acc + linesOfCode, INITIAL_VALUE);
 ```
 
-###  4.12. <a name='Encapsulateconditionals'></a>Encapsulate conditionals
+###  3.12. <a name='Encapsulateconditionals'></a>Encapsulate conditionals
 
 **Bad:**
 ```javascript
@@ -742,7 +741,7 @@ if (shouldShowSpinner(fsmInstance, listNodeInstance)) {
 }
 ```
 
-###  4.13. <a name='Avoidnegativeconditionals'></a>Avoid negative conditionals
+###  3.13. <a name='Avoidnegativeconditionals'></a>Avoid negative conditionals
 
 **Bad:**
 ```javascript
@@ -766,7 +765,7 @@ if (isDOMNodePresent(node)) {
 }
 ```
 
-###  4.14. <a name='Avoidconditionals'></a>Avoid conditionals
+###  3.14. <a name='Avoidconditionals'></a>Avoid conditionals
 This seems like an impossible task. Upon first hearing this, most people say,
 "how am I supposed to do anything without an `if` statement?" The answer is that
 you can use polymorphism to achieve the same task in many cases. The second
@@ -821,7 +820,7 @@ class Cessna extends Airplane {
 }
 ```
 
-###  4.15. <a name='Avoidtype-checkingpart1'></a>Avoid type-checking (part 1)
+###  3.15. <a name='Avoidtype-checkingpart1'></a>Avoid type-checking (part 1)
 JavaScript is untyped, which means your functions can take any type of argument.
 Sometimes you are bitten by this freedom and it becomes tempting to do
 type-checking in your functions. There are many ways to avoid having to do this.
@@ -845,7 +844,7 @@ function travelToTexas(vehicle) {
 }
 ```
 
-###  4.16. <a name='Avoidtype-checkingpart2'></a>Avoid type-checking (part 2)
+###  3.16. <a name='Avoidtype-checkingpart2'></a>Avoid type-checking (part 2)
 If you are working with basic primitive values like strings, integers, and arrays,
 and you can't use polymorphism but you still feel the need to type-check,
 you should consider using TypeScript. It is an excellent alternative to normal
@@ -875,7 +874,7 @@ function combine(val1, val2) {
 }
 ```
 
-###  4.17. <a name='Dontover-optimize'></a>Don't over-optimize
+###  3.17. <a name='Dontover-optimize'></a>Don't over-optimize
 Modern browsers do a lot of optimization under-the-hood at runtime. A lot of
 times, if you are optimizing then you are just wasting your time. [There are good
 resources](https://github.com/petkaantonov/bluebird/wiki/Optimization-killers)
@@ -899,7 +898,7 @@ for (let i = 0; i < list.length; i++) {
 }
 ```
 
-###  4.18. <a name='Removedeadcode'></a>Remove dead code
+###  3.18. <a name='Removedeadcode'></a>Remove dead code
 Dead code is just as bad as duplicate code. There's no reason to keep it in
 your codebase. If it's not being called, get rid of it! It will still be safe
 in your version history if you still need it.
@@ -929,8 +928,8 @@ const req = newRequestModule;
 inventoryTracker('apples', req, 'www.inventory-awesome.io');
 ```
 
-##  5. <a name='ObjectsandDataStructures'></a>**Objects and Data Structures**
-###  5.1. <a name='Usegettersandsetters'></a>Use getters and setters
+##  4. <a name='ObjectsandDataStructures'></a>**Objects and Data Structures**
+###  4.1. <a name='Usegettersandsetters'></a>Use getters and setters
 Using getters and setters to access data on objects could be better than simply
 looking for a property on an object. "Why?" you might ask. Well, here's an
 unorganized list of reasons why:
@@ -988,7 +987,7 @@ account.setBalance(100);
 ```
 
 
-###  5.2. <a name='Makeobjectshaveprivatemembers'></a>Make objects have private members
+###  4.2. <a name='Makeobjectshaveprivatemembers'></a>Make objects have private members
 This can be accomplished through closures (for ES5 and below).
 
 **Bad:**
@@ -1025,8 +1024,8 @@ console.log(`Employee name: ${employee.getName()}`); // Employee name: John Doe
 ```
 
 
-##  6. <a name='Classes'></a>**Classes**
-###  6.1. <a name='PreferES2015ES6classesoverES5plainfunctions'></a>Prefer ES2015/ES6 classes over ES5 plain functions
+##  5. <a name='Classes'></a>**Classes**
+###  5.1. <a name='PreferES2015ES6classesoverES5plainfunctions'></a>Prefer ES2015/ES6 classes over ES5 plain functions
 It's very difficult to get readable class inheritance, construction, and method
 definitions for classical ES5 classes. If you need inheritance (and be aware
 that you might not), then prefer ES2015/ES6 classes. However, prefer small functions over
@@ -1101,7 +1100,7 @@ class Human extends Mammal {
 ```
 
 
-###  6.2. <a name='Usemethodchaining'></a>Use method chaining
+###  5.2. <a name='Usemethodchaining'></a>Use method chaining
 This pattern is very useful in JavaScript and you see it in many libraries such
 as jQuery and Lodash. It allows your code to be expressive, and less verbose.
 For that reason, I say, use method chaining and take a look at how clean your code
@@ -1178,7 +1177,7 @@ const car = new Car('Ford','F-150','red')
   .save();
 ```
 
-###  6.3. <a name='Prefercompositionoverinheritance'></a>Prefer composition over inheritance
+###  5.3. <a name='Prefercompositionoverinheritance'></a>Prefer composition over inheritance
 As stated famously in [*Design Patterns*](https://en.wikipedia.org/wiki/Design_Patterns) by the Gang of Four,
 you should prefer composition over inheritance where you can. There are lots of
 good reasons to use inheritance and lots of good reasons to use composition.
@@ -1243,8 +1242,8 @@ class Employee {
 }
 ```
 
-##  7. <a name='SOLID'></a>**SOLID**
-###  7.1. <a name='SingleResponsibilityPrincipleSRP'></a>Single Responsibility Principle (SRP)
+##  6. <a name='SOLID'></a>**SOLID**
+###  6.1. <a name='SingleResponsibilityPrincipleSRP'></a>Single Responsibility Principle (SRP)
 As stated in Clean Code, "There should never be more than one reason for a class
 to change". It's tempting to jam-pack a class with a lot of functionality, like
 when you can only take one suitcase on your flight. The issue with this is
@@ -1300,7 +1299,7 @@ class UserSettings {
 }
 ```
 
-###  7.2. <a name='OpenClosedPrincipleOCP'></a>Open/Closed Principle (OCP)
+###  6.2. <a name='OpenClosedPrincipleOCP'></a>Open/Closed Principle (OCP)
 As stated by Bertrand Meyer, "software entities (classes, modules, functions,
 etc.) should be open for extension, but closed for modification." What does that
 mean though? This principle basically states that you should allow users to
@@ -1386,7 +1385,7 @@ class HttpRequester {
 }
 ```
 
-###  7.3. <a name='LiskovSubstitutionPrincipleLSP'></a>Liskov Substitution Principle (LSP)
+###  6.3. <a name='LiskovSubstitutionPrincipleLSP'></a>Liskov Substitution Principle (LSP)
 This is a scary term for a very simple concept. It's formally defined as "If S
 is a subtype of T, then objects of type T may be replaced with objects of type S
 (i.e., objects of type S may substitute objects of type T) without altering any
@@ -1500,7 +1499,7 @@ const shapes = [new Rectangle(4, 5), new Rectangle(4, 5), new Square(5)];
 renderLargeShapes(shapes);
 ```
 
-###  7.4. <a name='InterfaceSegregationPrincipleISP'></a>Interface Segregation Principle (ISP)
+###  6.4. <a name='InterfaceSegregationPrincipleISP'></a>Interface Segregation Principle (ISP)
 JavaScript doesn't have interfaces so this principle doesn't apply as strictly
 as others. However, it's important and relevant even with JavaScript's lack of
 type system.
@@ -1574,7 +1573,7 @@ const $ = new DOMTraverser({
 });
 ```
 
-###  7.5. <a name='DependencyInversionPrincipleDIP'></a>Dependency Inversion Principle (DIP)
+###  6.5. <a name='DependencyInversionPrincipleDIP'></a>Dependency Inversion Principle (DIP)
 This principle states two essential things:
 1. High-level modules should not depend on low-level modules. Both should
 depend on abstractions.
@@ -1668,7 +1667,7 @@ const inventoryTracker = new InventoryTracker(['apples', 'bananas'], new Invento
 inventoryTracker.requestItems();
 ```
 
-##  8. <a name='Testing'></a>**Testing**
+##  7. <a name='Testing'></a>**Testing**
 Testing is more important than shipping. If you have no tests or an
 inadequate amount, then every time you ship code you won't be sure that you
 didn't break anything. Deciding on what constitutes an adequate amount is up
@@ -1684,7 +1683,7 @@ Test Driven Development (TDD), that is great, but the main point is to just
 make sure you are reaching your coverage goals before launching any feature,
 or refactoring an existing one.
 
-###  8.1. <a name='Singleconceptpertest'></a>Single concept per test
+###  7.1. <a name='Singleconceptpertest'></a>Single concept per test
 
 **Bad:**
 ```javascript
@@ -1734,8 +1733,8 @@ describe('MakeMomentJSGreatAgain', () => {
 });
 ```
 
-##  9. <a name='Concurrency'></a>**Concurrency**
-###  9.1. <a name='UsePromisesnotcallbacks'></a>Use Promises, not callbacks
+##  8. <a name='Concurrency'></a>**Concurrency**
+###  8.1. <a name='UsePromisesnotcallbacks'></a>Use Promises, not callbacks
 Callbacks aren't clean, and they cause excessive amounts of nesting. With ES2015/ES6,
 Promises are a built-in global type. Use them!
 
@@ -1778,7 +1777,7 @@ get('https://en.wikipedia.org/wiki/Robert_Cecil_Martin')
 
 ```
 
-###  9.2. <a name='AsyncAwaitareevencleanerthanPromises'></a>Async/Await are even cleaner than Promises
+###  8.2. <a name='AsyncAwaitareevencleanerthanPromises'></a>Async/Await are even cleaner than Promises
 Promises are a very clean alternative to callbacks, but ES2017/ES8 brings async and await
 which offer an even cleaner solution. All you need is a function that is prefixed
 in an `async` keyword, and then you can write your logic imperatively without
@@ -1820,13 +1819,13 @@ async function getCleanCodeArticle() {
 ```
 
 
-##  10. <a name='ErrorHandling'></a>**Error Handling**
+##  9. <a name='ErrorHandling'></a>**Error Handling**
 Thrown errors are a good thing! They mean the runtime has successfully
 identified when something in your program has gone wrong and it's letting
 you know by stopping function execution on the current stack, killing the
 process (in Node), and notifying you in the console with a stack trace.
 
-###  10.1. <a name='Dontignorecaughterrors'></a>Don't ignore caught errors
+###  9.1. <a name='Dontignorecaughterrors'></a>Don't ignore caught errors
 Doing nothing with a caught error doesn't give you the ability to ever fix
 or react to said error. Logging the error to the console (`console.log`)
 isn't much better as often times it can get lost in a sea of things printed
@@ -1858,7 +1857,7 @@ try {
 }
 ```
 
-###  10.2. <a name='Dontignorerejectedpromises'></a>Don't ignore rejected promises
+###  9.2. <a name='Dontignorerejectedpromises'></a>Don't ignore rejected promises
 For the same reason you shouldn't ignore caught errors
 from `try/catch`.
 
@@ -1892,7 +1891,7 @@ getdata()
 
 
 
-##  11. <a name='Formatting'></a>**Formatting**
+##  10. <a name='Formatting'></a>**Formatting**
 Formatting is subjective. Like many rules herein, there is no hard and fast
 rule that you must follow. The main point is DO NOT ARGUE over formatting.
 There are [tons of tools](http://standardjs.com/rules.html) to automate this.
@@ -1902,7 +1901,7 @@ For things that don't fall under the purview of automatic formatting
 (indentation, tabs vs. spaces, double vs. single quotes, etc.) look here
 for some guidance.
 
-###  11.1. <a name='Useconsistentcapitalization'></a>Use consistent capitalization
+###  10.1. <a name='Useconsistentcapitalization'></a>Use consistent capitalization
 JavaScript is untyped, so capitalization tells you a lot about your variables,
 functions, etc. These rules are subjective, so your team can choose whatever
 they want. The point is, no matter what you all choose, just be consistent.
@@ -1938,7 +1937,7 @@ class Alpaca {}
 ```
 
 
-###  11.2. <a name='Functioncallersandcalleesshouldbeclose'></a>Function callers and callees should be close
+###  10.2. <a name='Functioncallersandcalleesshouldbeclose'></a>Function callers and callees should be close
 If a function calls another, keep those functions vertically close in the source
 file. Ideally, keep the caller right above the callee. We tend to read code from
 top-to-bottom, like a newspaper. Because of this, make your code read that way.
@@ -2022,8 +2021,8 @@ review.perfReview();
 ```
 
 
-##  12. <a name='Comments'></a>**Comments**
-###  12.1. <a name='Onlycommentthingsthathavebusinesslogiccomplexity.'></a>Only comment things that have business logic complexity.
+##  11. <a name='Comments'></a>**Comments**
+###  11.1. <a name='Onlycommentthingsthathavebusinesslogiccomplexity.'></a>Only comment things that have business logic complexity.
 Comments are an apology, not a requirement. Good code *mostly* documents itself.
 
 **Bad:**
@@ -2065,7 +2064,7 @@ function hashIt(data) {
 
 ```
 
-###  12.2. <a name='Dontleavecommentedoutcodeinyourcodebase'></a>Don't leave commented out code in your codebase
+###  11.2. <a name='Dontleavecommentedoutcodeinyourcodebase'></a>Don't leave commented out code in your codebase
 Version control exists for a reason. Leave old code in your history.
 
 **Bad:**
@@ -2081,7 +2080,7 @@ doStuff();
 doStuff();
 ```
 
-###  12.3. <a name='Donthavejournalcomments'></a>Don't have journal comments
+###  11.3. <a name='Donthavejournalcomments'></a>Don't have journal comments
 Remember, use version control! There's no need for dead code, commented code,
 and especially journal comments. Use `git log` to get history!
 
@@ -2105,7 +2104,7 @@ function combine(a, b) {
 }
 ```
 
-###  12.4. <a name='Avoidpositionalmarkers'></a>Avoid positional markers
+###  11.4. <a name='Avoidpositionalmarkers'></a>Avoid positional markers
 They usually just add noise. Let the functions and variable names along with the
 proper indentation and formatting give the visual structure to your code.
 
