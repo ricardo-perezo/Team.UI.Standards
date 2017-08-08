@@ -10,32 +10,31 @@
 * 6. [Template Literals](#TemplateLiterals)
 * 7. [Loops](#Loops)
 	* 7.1. [For](#For)
-* 8. [Use Strict](#UseStrict)
-* 9. [Arrays](#Arrays)
-	* 9.1. [Predefined Array Functions](#PredefinedArrayFunctions)
-* 10. [Functions](#Functions)
-	* 10.1. [Anonymous Functions](#AnonymousFunctions)
-	* 10.2. [Defined Function](#DefinedFunction)
-		* 10.2.1. [Arguments](#Arguments)
-		* 10.2.2. [Default Parametters](#DefaultParametters)
-		* 10.2.3. [Lazy Functions](#LazyFunctions)
-	* 10.3. [Arrow Functions](#ArrowFunctions)
-* 11. [This](#This)
-* 12. [Scope](#Scope)
-	* 12.1. [Function scope](#Functionscope)
-	* 12.2. [Block scope](#Blockscope)
-	* 12.3. [Expression scope](#Expressionscope)
-* 13. [Hoisting](#Hoisting)
-* 14. [Closure](#Closure)
-* 15. [Objects](#Objects)
-	* 15.1. [Function Binding](#FunctionBinding)
-	* 15.2. [Json](#Json)
-	* 15.3. [Predefined object functions](#Predefinedobjectfunctions)
-* 16. [Prototype](#Prototype)
-* 17. [Standard Built-in Object Methods](#StandardBuilt-inObjectMethods)
-* 18. [Standard Built-in Array Methods](#StandardBuilt-inArrayMethods)
-* 19. [Method Chaining](#MethodChaining)
-* 20. [Use Strict](#UseStrict-1)
+* 8. [Arrays](#Arrays)
+	* 8.1. [Predefined Array Functions](#PredefinedArrayFunctions)
+* 9. [Functions](#Functions)
+	* 9.1. [Anonymous Functions](#AnonymousFunctions)
+	* 9.2. [Defined Function](#DefinedFunction)
+		* 9.2.1. [Arguments](#Arguments)
+		* 9.2.2. [Default Parametters](#DefaultParametters)
+		* 9.2.3. [Lazy Functions](#LazyFunctions)
+	* 9.3. [Arrow Functions](#ArrowFunctions)
+* 10. [This](#This)
+* 11. [Scope](#Scope)
+	* 11.1. [Function scope](#Functionscope)
+	* 11.2. [Block scope](#Blockscope)
+	* 11.3. [Expression Scope IIFE](#ExpressionScopeIIFE)
+* 12. [Hoisting](#Hoisting)
+* 13. [Closure](#Closure)
+* 14. [Objects](#Objects)
+	* 14.1. [Function Binding](#FunctionBinding)
+	* 14.2. [JSON](#JSON)
+	* 14.3. [Predefined object functions](#Predefinedobjectfunctions)
+* 15. [Prototype](#Prototype)
+* 16. [Standard Built-in Object Methods](#StandardBuilt-inObjectMethods)
+* 17. [Standard Built-in Array Methods](#StandardBuilt-inArrayMethods)
+* 18. [Method Chaining](#MethodChaining)
+* 19. [Use Strict](#UseStrict)
 
 <!-- vscode-markdown-toc-config
 	numbering=true
@@ -48,7 +47,7 @@
 ##  1. <a name='Variables'></a>Variables
 Variables are containers that you can store values in. You start by declaring a variable with the var keyword, followed by any name you want to call it:
 ```js
-//Declaration of  undefined value
+//Declaration of  undefined or unasigned value
 var myVariable;
 //Declaration of literal variables 
 var myNumber=123;
@@ -84,26 +83,23 @@ console.log(myVariable)
 JavaScript has the following types of operators. This section describes the operators and contains information about operator precedence.
 
 ```js
-//Assigment Operator
-var x,y=10;
-  x =    y //Assignment
-  x +=   y //Addition assignment       x = x + y
-  x -=   y //Subtraction assignment    x = x - y
-  x *=   y //Multiplication assignment x = x * y
-  x /=   y //Division assignment       x = x / y
-  x %=   y //Remainder assignment      x = x % y
-  x **=  y //Exponentiation assignment x = x ** y 
-  x <<=  y //Left shift assignment     x = x << y
-  x >>=  y //Right shift assignment    x = x >> y
-  x >>>= y //Unsigned right shift assignment x = x >>> y
-  x &=   y //Bitwise AND assignment    x = x & y
-  x ^=   y //Bitwise XOR assignment    x = x ^ y
-  x |=   y //Bitwise OR assignment     x = x | y
-
+//Assigment Operators
+var [x,y]=10;
+//Addition
+x = y + 2
+//Subtraction
+x = y - 2
+//Multiplication
+x = y * 2
+//Division
+x = y / 2
+//Modulus (division remainder)
+x = y % 2
+//Increment
+x = ++y
+//Decrement
+x = --y
 ```
-
-		
-
 ##  4. <a name='Coersion'></a>Coersion
 
 The coersion is an interpretation of the compiler about operations of 2 differents types of variables
@@ -187,21 +183,21 @@ The program first looks for a case clause with a label matching the value of exp
 
 The optional break statement associated with each case clause ensures that the program breaks out of switch once the matched statement is executed and continues execution at the statement following switch. If break is omitted, the program continues execution at the next statement in the switch statement.
 ###  5.3. <a name='Ternary'></a>Ternary
+
 The conditional (ternary) operator is the only JavaScript operator that takes three operands. This operator is frequently used as a shortcut for the if statement.
 
-Syntax
-condition ? expr1 : expr2 
 ```js
 var isThisConditional=true;
 (isThisConditional) ? 'return on true':'return this section on false';
 ```
+
 Multiple ternary evaluations are also possible (note: the conditional operator is right associative):
 ```js
 var firstCheck = false,
     secondCheck = false,
     access = firstCheck ? 'Access denied' : secondCheck ? 'Access denied' : 'Access granted';
   
-console.log(access); // logs "Access granted"
+console.log(access); // "Access granted"
 ```
 You can also use multiple conditions like in a multiple-conditions IF statement
 ```js
@@ -209,7 +205,7 @@ var condition1 = true,
     condition2 = false,
     access = condition1 ? (condition2 ? "true true": "true false") : (condition2 ? "false true" : "false false");
 
-console.log(access); // logs "true false"
+console.log(access); // "true false"
 ```
 
 ##  6. <a name='TemplateLiterals'></a>Template Literals
@@ -229,24 +225,12 @@ The iteration statement where you can increase or decrease your counter.
 
 ```js
 
-for (let iterator=0; iterator<=limit; iterator++){
+for (var iterator=0; iterator<=limit; iterator++){
   // Statement(s) to be executed if test condition is true
 }
 ```
 
-
-##  8. <a name='UseStrict'></a>Use Strict
-The "use strict" directive is new in JavaScript 1.8.5 (ECMAScript version 5).
-It is not a statement, but a literal expression, ignored by earlier versions of JavaScript.
-The purpose of "use strict" is to indicate that the code should be executed in "strict mode".
-Strict mode makes it easier to write "secure" JavaScript.
-Strict mode changes previously accepted "bad syntax" into real errors.
-As an example, in normal JavaScript, mistyping a variable name creates a new global variable. In strict mode, this will throw an error, making it impossible to accidentally create a global variable.
-In normal JavaScript, a developer will not receive any error feedback assigning values to non-writable properties.
-In strict mode, any assignment to a non-writable property, a getter-only property, a non-existing property, a non-existing variable, or a non-existing object, will throw an error.
-
-
-##  9. <a name='Arrays'></a>Arrays
+##  8. <a name='Arrays'></a>Arrays
 An array is an ordered collection of data (either primitive or object depending upon the language). Arrays are used to store multiple values in a single variable. This is compared to a variable that can store only one value. 
 
 Each item in an array has a number attached to it, called a numeric index, that allows you to access it. In JavaScript, arrays start at index zero and can be manipulated with various methods. 
@@ -259,12 +243,12 @@ var catNamesArray = ["Jacqueline", "Sophia", "Autumn"];
 
 //Arrays in JavaScript can hold different types of data, as shown above.
 ```
-###  9.1. <a name='PredefinedArrayFunctions'></a>Predefined Array Functions
+###  8.1. <a name='PredefinedArrayFunctions'></a>Predefined Array Functions
 
-##  10. <a name='Functions'></a>Functions
+##  9. <a name='Functions'></a>Functions
 
 
-###  10.1. <a name='AnonymousFunctions'></a>Anonymous Functions
+###  9.1. <a name='AnonymousFunctions'></a>Anonymous Functions
 An anonymous function is a function without a function name:
 ```js
 function(myParam){
@@ -277,10 +261,10 @@ foo();
  })()//() it's the function caller
 ```
 
-###  10.2. <a name='DefinedFunction'></a>Defined Function
+###  9.2. <a name='DefinedFunction'></a>Defined Function
 
 
-####  10.2.1. <a name='Arguments'></a>Arguments
+####  9.2.1. <a name='Arguments'></a>Arguments
 The arguments of a function could be variable so we can use those dynamically with the object "arguments"
 ```js
 function sumAll(){
@@ -295,7 +279,7 @@ sumAll(1,2,3,4,5,6) //21
 
 ```
 
-####  10.2.2. <a name='DefaultParametters'></a>Default Parametters
+####  9.2.2. <a name='DefaultParametters'></a>Default Parametters
 
 ```js
 function myLog(param1=1,param2=2){
@@ -307,7 +291,7 @@ myLog(param2=8); // 8 , 2 the reasignation is not posible again
 myLog(); // 1 ,2
 ```
 
-####  10.2.3. <a name='LazyFunctions'></a>Lazy Functions
+####  9.2.3. <a name='LazyFunctions'></a>Lazy Functions
 When we use a function  as a default value of a param it's declared but not executed inst:
 
 ```js
@@ -322,7 +306,7 @@ bar("John");// foo still without be called
 bar(); // foo is called
 ```
 
-###  10.3. <a name='ArrowFunctions'></a>Arrow Functions
+###  9.3. <a name='ArrowFunctions'></a>Arrow Functions
 An arrow function expression has a shorter syntax than a function expression and does not bind its own this, arguments, super, or new.target. These function expressions are best suited for non-method functions, and they cannot be used as constructors.
 ```js
 // Transformation of function to arrow function;
@@ -333,24 +317,24 @@ var arrowPlusOne  = myParam   => myParam + 1;
 var arrowPlusMulti  = (firstParam,secondParam) => firstParam+secondParam;
 
 ```
-##  11. <a name='This'></a>This
-this is a dynamic  object that represent the actual object who calls a function, also exist a native method in any function to call a function and and 
+##  10. <a name='This'></a>This
+this is a dynamic  object that represent the actual object who calls a function, also exist a native method in any function to call a function and change the This reference to another object.
+
 ```js
 var person={
               name:"john",
-              greet:function greet(){
-                console.log("Hello my name is "+ this.name)
+              greet:function greet(param){
+                console.log("Hello "+param+" my name is "+ this.name)
               }
             }
-    person.greet()//"Hello my name is john"    
-
+    person.greet('bird')//"Hello bird my name is john"
 var marie={name:"marie"}
-    person.greet.call(marie)//"Hello my name is marie" 
-
+    person.greet.call(marie,'dog')//"Hello dog my name is marie" 
 ``` 
 
-##  12. <a name='Scope'></a>Scope
+##  11. <a name='Scope'></a>Scope
 The scope is the "domain" where a variable can be found. It have a flexible hierarchy.
+the global scope can be access by any child scope but the global can't acces to a child scope.
 ```
 Global
 │ 
@@ -369,8 +353,10 @@ Global
      └───expression
 ```
 
-###  12.1. <a name='Functionscope'></a>Function scope
-The function can access to the father scope but the father can't acces to the function scope.
+
+###  11.1. <a name='Functionscope'></a>Function scope
+The function create it's own scope and it's destroyed when the function excecution end unless does exist a reference to that (see more on [Closure](#Closure)).
+
 
 ```js
 var scope="global"; 
@@ -386,7 +372,7 @@ function checkScope(){
   /*"ReferenceError: 'childScope' is undefined"*/
 ```
 
-###  12.2. <a name='Blockscope'></a>Block scope
+###  11.2. <a name='Blockscope'></a>Block scope
 The block scope is every scope of a block defined by "{}" except the function 
 and can be excecuted or not.
 
@@ -413,7 +399,7 @@ console.log(anotherLocal)//undefined
 ```
 
 
-###  12.3. <a name='Expressionscope'></a>Expression scope 
+###  11.3. <a name='ExpressionScopeIIFE'></a>Expression Scope IIFE
 The expression inside of a parentesis "()" it's in another scope and it's interpreted as a parameter to be executed so if we use the call expression "()" will be executed. This kind of scope  run, when it stop the all variables inside will be destroyed.
 ```js
 (function(){var expressionScoped="this will never be showed"})
@@ -433,7 +419,7 @@ var expressionResult= (function(){var expressionScoped="maybe you see me"
 console.log(expressionResult)//"maybe you see me"
 ```
 
-##  13. <a name='Hoisting'></a>Hoisting
+##  12. <a name='Hoisting'></a>Hoisting
 The hoisting consist in a transparent action of the interpreter on the script  execution time where every definition of a variable is positioned in the begin of a scope. Be aware that the definition is relocated but not the assignation.
 ```js
 console.log(defintion)//undefined
@@ -465,7 +451,7 @@ function hello(){
 ```
 
 
-##  14. <a name='Closure'></a>Closure 
+##  13. <a name='Closure'></a>Closure 
 To understad understand the closure it's necessary remember the function scope rule, with this we can create a closure. A closure is a scope where the access is restricted.
 ```js
 var scope="this is a global scope";
@@ -553,7 +539,7 @@ scope.add()
 scope=0;//error
 ```
 On this way our scope it's safe of modifications.PD: it's possible that opera mini and some transpilers like babbel or typescript had an error to try this solution.
-##  15. <a name='Objects'></a>Objects
+##  14. <a name='Objects'></a>Objects
 The object Object  is the base of every new Object but the best way to use is not created an instance it's better if the Object is used directly.
 ```js
 var myObject={
@@ -567,11 +553,7 @@ console.log(Object.keys(myObject));
 ```
 Note: in the example is used a property name with whitespaces for demostration only, it's not recommended use this style to declare properties on your code.
 
-
-
-###  15.1. <a name='FunctionBinding'></a>Function Binding
-
-###  15.2. <a name='Json'></a>JSON
+###  14.2. <a name='JSON'></a>JSON
 The JSON means "Javascript Object Notation" and it's a particular way to declare objects.
 ```js
 var Json={
@@ -602,12 +584,9 @@ console.log(objectReference.property)
 objectReference.property=0;
 console.log(myObject.property)//0 the original object was modified
 ```
-Remember every time that you assign just a link or reference to the original object but there is not a new object created. If you need create a new object identical of other, you may 
+Remember every time that you assign just a link or reference to the original object but there is not a new object created. By the moment doesn't exist 
 
-
-###  15.3. <a name='Predefinedobjectfunctions'></a>Predefined object functions 
-
-##  16. <a name='Prototype'></a>Prototype 
+##  15. <a name='Prototype'></a>Prototype 
 The prototype is a property that is inheranced by the creator of the instanced object
 
 ```js
@@ -637,7 +616,7 @@ console.log(instance.everyBodySeeThis)
 ```
 
 
-##  17. <a name='StandardBuilt-inObjectMethods'></a>Standard Built-in Object Methods
+##  16. <a name='StandardBuilt-inObjectMethods'></a>Standard Built-in Object Methods
 The object Object like all built-in objects had it own functions to make some procedures easier. The most useful methods are:
 ```js
 //Get the keynames of a project.
@@ -650,14 +629,45 @@ Object.values(myObject)// ["hello","john"]
 
 ```
 
-##  18. <a name='StandardBuilt-inArrayMethods'></a>Standard Built-in Array Methods
+##  17. <a name='StandardBuilt-inArrayMethods'></a>Standard Built-in Array Methods
+Any array have inheranced methods to interact with it 
+```js
+var myArray=[1,2,3,4,5]
+myArray.map(function(item,index,array){
+console.log(item,index,array)
+return item*2
+});//return a new array of  returned values inside of the callback
+myArray.forEach(function(item, index, array) {
+  console.log(item, index);
+});
 
 
-##  19. <a name='MethodChaining'></a>Method Chaining 
+ myArray.pop(); // remove last item (from the end) and return the item
+myArray.shift(); // remove the first element from the front and return the item
+myArray.unshift(10) // add to the front the parameter 
+myArray.indexOf(10)// return the index where is located the parameter inside the array, or -1 in case of don't find it.
+
+```
+
+##  18. <a name='MethodChaining'></a>Method Chaining 
+When we are handling with some object it's posible chain a function width other compatible with it's result.
+```js
+var myArray=[1,2,3,4,5]
 
 
-##  20. <a name='UseStrict-1'></a>Use Strict
-'use strict' is a directive to improve our codes and help to prevent common mistakes maded by some unrestrictions of the language. This directive should to be declared in the scope that we want to implement. 
+})//[undefined, 2, undefined, 4, undefined]
+
+```
+##  19. <a name='UseStrict'></a>Use Strict
+The "use strict" directive is new in JavaScript 1.8.5 (ECMAScript version 5).
+It is not a statement, but a literal expression, ignored by earlier versions of JavaScript.
+The purpose of "use strict" is to indicate that the code should be executed in "strict mode".
+Strict mode makes it easier to write "secure" JavaScript.
+Strict mode changes previously accepted "bad syntax" into real errors.
+As an example, in normal JavaScript, mistyping a variable name creates a new global variable. In strict mode, this will throw an error, making it impossible to accidentally create a global variable.
+In normal JavaScript, a developer will not receive any error feedback assigning values to non-writable properties.
+In strict mode, any assignment to a non-writable property, a getter-only property, a non-existing property, a non-existing variable, or a non-existing object, will throw an error.
+'use strict' is a directive to improve our codes and help to prevent common mistakes maded by some unrestrictions of the language. This directive should to be declared in the scope that we want to implement it. 
 ```js
 //global scoping 
 function foo(){
@@ -672,6 +682,7 @@ console.log(b);//error; b is assigned but never declared;
 }
 bar();
 ```
+
 ```js
 //protect future keywords
 (function interface(){
@@ -684,7 +695,8 @@ bar();
   var private="i'm private";//reserved word
 })()
 ```
-It's highly recommended use the "use strict" directive for 
+
+
 
 # Note: 
 All the clean code steps will be implicits on the code examples, for more detailed info please visit [Idiomatic clean code](https://github.com/rwaldron/idiomatic.js)
