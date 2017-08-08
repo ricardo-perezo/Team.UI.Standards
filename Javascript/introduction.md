@@ -40,7 +40,8 @@
 	numbering=true
 	autoSave=true
 	/vscode-markdown-toc-config -->
-<!-- /vscode-markdown-toc -->Introduction to JS
+<!-- /vscode-markdown-toc -->
+Introduction to JS
 ===================
 
 # Introduction
@@ -318,7 +319,7 @@ var arrowPlusMulti  = (firstParam,secondParam) => firstParam+secondParam;
 
 ```
 ##  10. <a name='This'></a>This
-this is a dynamic  object that represent the actual object who calls a function, also exist a native method in any function to call a function and change the This reference to another object.
+this is a dynamic  object that represent the actual object who calls a function, also exist a native method in any function to call a fsunction and change the This reference to another object.
 
 ```js
 var person={
