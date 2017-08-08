@@ -30,15 +30,12 @@
 * 15. [Objects](#Objects)
 	* 15.1. [Function Binding](#FunctionBinding)
 	* 15.2. [Json](#Json)
-	* 15.3. [Object Object](#ObjectObject)
-	* 15.4. [Predefined object functions](#Predefinedobjectfunctions)
+	* 15.3. [Predefined object functions](#Predefinedobjectfunctions)
 * 16. [Prototype](#Prototype)
-* 17. [Method Chaining](#MethodChaining)
-* 18. [Standard Built-in Object Methods](#StandardBuilt-inObjectMethods)
-* 19. [Standard Built-in Array Methods](#StandardBuilt-inArrayMethods)
-* 20. [Object Literals](#ObjectLiterals)
-* 21. [The Module Pattern](#TheModulePattern)
-* 22. [Module Pattern Variations](#ModulePatternVariations)
+* 17. [Standard Built-in Object Methods](#StandardBuilt-inObjectMethods)
+* 18. [Standard Built-in Array Methods](#StandardBuilt-inArrayMethods)
+* 19. [Method Chaining](#MethodChaining)
+* 20. [Use Strict](#UseStrict-1)
 
 <!-- vscode-markdown-toc-config
 	numbering=true
@@ -557,23 +554,137 @@ scope=0;//error
 ```
 On this way our scope it's safe of modifications.PD: it's possible that opera mini and some transpilers like babbel or typescript had an error to try this solution.
 ##  15. <a name='Objects'></a>Objects
+The object Object  is the base of every new Object but the best way to use is not created an instance it's better if the Object is used directly.
+```js
+var myObject={
+  "this is my key":"this is my string value",
+  name:"john"
+}
+
+console.log(Object.keys(myObject))
+delete myObject['this is my key'];
+console.log(Object.keys(myObject));
+```
+Note: in the example is used a property name with whitespaces for demostration only, it's not recommended use this style to declare properties on your code.
+
 
 
 ###  15.1. <a name='FunctionBinding'></a>Function Binding
 
-###  15.2. <a name='Json'></a>Json
+###  15.2. <a name='Json'></a>JSON
+The JSON means "Javascript Object Notation" and it's a particular way to declare objects.
+```js
+var Json={
+  value:"My first value",
+  "second":"My second value",
+  "key with spaces":"you can use spaces for a key object",
+  function jsonFunction(){
+    return "also it's possible declare a function and the key it's the name of de function;
+  },
+  number:22  
+}
+// dot Notation
+Json.value
+Json."second"//Error Syntax
+Json["second"]//Correct
+Json["jsonFunction"]()//Correct
+Json.jsonFunction()//Correct
+Json[value]//Error value is not declared
+delete Json.value //Possible but not recomended
+```
+A really important concept to understand about objects( included arrays) is the "reference".
+```js
+var myObject={
+  property:"hello"
+}
+var objectReference=myObject;
+console.log(objectReference.property)
+objectReference.property=0;
+console.log(myObject.property)//0 the original object was modified
+```
+Remember every time that you assign just a link or reference to the original object but there is not a new object created. If you need create a new object identical of other, you may 
 
-###  15.3. <a name='ObjectObject'></a>Object Object
 
-###  15.4. <a name='Predefinedobjectfunctions'></a>Predefined object functions 
+###  15.3. <a name='Predefinedobjectfunctions'></a>Predefined object functions 
 
 ##  16. <a name='Prototype'></a>Prototype 
+The prototype is a property that is inheranced by the creator of the instanced object
 
-##  17. <a name='MethodChaining'></a>Method Chaining 
+```js
+function Creator(message){
+ this.message= message; 
+}
+Creator.prototype.say=function(){
+  console.log(this.message);  
+}
 
-##  18. <a name='StandardBuilt-inObjectMethods'></a>Standard Built-in Object Methods
+var instance= new Creator('hello world');
+instance.say()
 
-##  19. <a name='StandardBuilt-inArrayMethods'></a>Standard Built-in Array Methods
+```
+The difference between prototype and the direct properties of a function is that every instanced object  of the function create it's own properties that existed inside if the function and the prototype is the same for all so if you modify the prototype of the creator  it's modify the instanced inheranced property; the change will be reflected to all instances of that function.
+```js
+function Creator(message){
+ this.message= message;
+}
+Creator.prototype.everyBodySeeThis="You can see me";
+
+var instance= new Creator('hello world');
+console.log(instance.everyBodySeeThis);
+
+Creator.prototype.everyBodySeeThis=0;
+console.log(instance.everyBodySeeThis)
+```
+
+
+##  17. <a name='StandardBuilt-inObjectMethods'></a>Standard Built-in Object Methods
+The object Object like all built-in objects had it own functions to make some procedures easier. The most useful methods are:
+```js
+//Get the keynames of a project.
+var myObject={
+  foo:"hello",
+  bar:"john"
+}
+Object.keys(myObject)// ["foo","bar"]
+Object.values(myObject)// ["hello","john"]
+
+```
+
+##  18. <a name='StandardBuilt-inArrayMethods'></a>Standard Built-in Array Methods
+
+
+##  19. <a name='MethodChaining'></a>Method Chaining 
+
+
+##  20. <a name='UseStrict-1'></a>Use Strict
+'use strict' is a directive to improve our codes and help to prevent common mistakes maded by some unrestrictions of the language. This directive should to be declared in the scope that we want to implement. 
+```js
+//global scoping 
+function foo(){
+a=0;
+console.log(a);// 0; a is created on the global scope
+}
+foo();
+function bar(){
+'use strict';
+b=0;
+console.log(b);//error; b is assigned but never declared;
+}
+bar();
+```
+```js
+//protect future keywords
+(function interface(){
+  var implements= "hello";
+  var private="i'm private";
+})()
+(function interface(){
+  'use strict'
+  var implements= "hello";//reserved word
+  var private="i'm private";//reserved word
+})()
+```
+It's highly recommended use the "use strict" directive for 
 
 # Note: 
 All the clean code steps will be implicits on the code examples, for more detailed info please visit [Idiomatic clean code](https://github.com/rwaldron/idiomatic.js)
