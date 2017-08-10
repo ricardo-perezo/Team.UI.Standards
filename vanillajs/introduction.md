@@ -114,7 +114,7 @@ The first example is change the text of a element depending of a input
     <title>Document</title>
 </head>
 <body>
-    <input type="text" data-variable="custom">
+    <input type="text" data-input="custom">
     <h1 data-text="custom"><h1>
 </body>
 </html>
@@ -122,31 +122,31 @@ The first example is change the text of a element depending of a input
 
 ```js
 
-document.querySelector('[data-variable="custom"]').addEventListener("keydown", changeText); 
-document.querySelector('[data-variable="custom"]').addEventListener("keyup", changeText); 
-document.querySelector('[data-variable="custom"]').addEventListener("keypress", changeText); 
+document.querySelector('[data-input="custom"]').addEventListener("keydown", changeText); 
+document.querySelector('[data-input="custom"]').addEventListener("keyup", changeText); 
+document.querySelector('[data-input="custom"]').addEventListener("keypress", changeText); 
 function changeText(event){
     document.querySelector('[data-text="custom"]').innerHTML=event.target.value;
 }
 ```
 It works but is no to much impresive because it's semi harcoded.
-if we wanted a kind of function to make this modular we should set some rules for example, to identify any kind of variable we will use de convention of [data attribute ](https://developer.mozilla.org/en-US/docs/Learn/HTML/Howto/Use_data_attributes)
+if we wanted a kind of function to make this modular we should set some rules for example, to identify any kind of data  we will use de convention of [data attribute](https://developer.mozilla.org/en-US/docs/Learn/HTML/Howto/Use_data_attributes)
 
 ```js
 var micro_framework = (function create_Module() {
     var app = {};
-    app function addListeners() {
-        [].map.call(document.querySelectorAll('[data-variable]'), function (element) {
+     function addListeners() {
+        [].map.call(document.querySelectorAll('[data-input]'), function (element) {
             element.addEventListener("keydown", changeValues);
             element.addEventListener("keyup", changeValues);
             element.addEventListener("keypress", changeValues);
         });
     }
     function changeValues(event) {
-        [].map.call(document.querySelectorAll('[data-text="' + event.target.getAttribute('data-variable') + '"]'), function (element) {
+        [].map.call(document.querySelectorAll('[data-text="' + event.target.getAttribute('data-input') + '"]'), function (element) {
             element.innerHTML = event.target.value;
         });
-        [].map.call(document.querySelectorAll('[data-variable="' + event.target.getAttribute('data-variable') + '"]'), function (element) {
+        [].map.call(document.querySelectorAll('[data-input="' + event.target.getAttribute('data-input') + '"]'), function (element) {
             element.value = event.target.value;
         })
     }
@@ -157,5 +157,140 @@ var micro_framework = (function create_Module() {
 })()
 micro_framework.create();
 ```
-25 Lines of code to get a "primitive" microframework, a lot of stuff is needed to validate but it's a good start.
+25 Lines of code to get a "primitive" microframework, a lot of stuff is needed to validate and improve but it's a good start. As you can see the performance is not too good because we are adding a lot of listeners to the dom to check the changes, what if we need to change 1000 inputs at the same time?, Do we need to add 4000 listeners?
 
+Taking as reference the some patterns to improve the performance first we can put an id to identify the scope of our app in the dom.
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Document</title>
+</head>
+<body>
+<div id="app-container">
+  <input type="text" data-input="name">
+  <h1 data-text="name"><h1>    
+</div>
+</body>
+</html>
+```
+Json structure to get dinamyc params, by the moment only it gonna take the element where the component will render
+```js
+//data structure 
+{
+  element: '#app-container',//if we use an css selector we can use easilly use querySelector for our operations  
+}
+```
+
+Now the big deal, if we want to create a module like this 
+```js
+var app = new micro_framework({
+  element: '#app-container',
+  data: {
+    name:"John",
+    last_name:"Doe",
+    address:"ellison park",
+  }
+});
+```
+It's necessary make touch our code
+```js
+var micro_framework = (function create_Module() {
+  var virtualDom={};//Creating a  variable for our Dom 
+  var app = function app(params){     
+  var component=this;
+      component.getDynamicDom =  function getDynamicDom(container){  
+            virtualDom.inputs = [].slice.call(container.querySelectorAll("[data-input]"));
+            virtualDom.texts  =  [].slice.call(container.querySelectorAll("[data-text]"));
+        }
+       component.addListeners= function addListeners(inputs) {          
+          inputs.map( function (element) {
+            element.addEventListener("keyup", component.changeValues);
+            element.addEventListener("keydown", component.changeValues);
+            element.addEventListener("keypress", component.changeValues); 
+        });
+    } 
+     component.changeValues=function changeValues(event) {
+     component.renderValues(event.target.getAttribute("data-input"))
+    } 
+     component.renderValues = function renderValues(target) {            
+     [].map.call(component.container.querySelectorAll('[data-text="' + target + '"]'), 
+        function (element){
+                element.innerHTML = event.target.value;
+        });
+        [].map.call(component.container.querySelectorAll('[data-input="' + target + '"]'), function (element){     
+            element.value = event.target.value;
+         })
+    }
+        component.container=document.querySelector(params.element);        
+        component.getDynamicDom(this.container);              
+        component.addListeners(virtualDom.inputs);    
+};
+    return app;
+})();
+var app = new micro_framework({
+  element: '#app-container'
+});
+```
+As you can see the code make the same thing but with some improvements in to the structure and readibility, now What happend if I want to bind a json object to our view, so we can load default data to our view.
+
+
+```js
+var micro_framework = (function create_Module() {
+  var virtualDom={};//Creating a "hidden variable"     
+  var app = function app(params){
+    var component=this;    
+        component.data=params.data;        
+        component.syncData =  function syncData(container){
+          virtualDom.inputs = [].slice.call(container.querySelectorAll("[data-input]")).map(function(element){
+            
+            var newProperty=element.getAttribute("data-input");
+            if(!component.hasOwnProperty(newProperty)){
+                component.model[element.getAttribute("data-input")]=element.value;
+            }              
+            return element;
+          });
+            virtualDom.texts  = [].slice.call(container.querySelectorAll("[data-text]"));
+        }        
+    component.getDynamicDom =  function getDynamicDom(container){  
+      virtualDom.inputs = [].slice.call(container.querySelectorAll("[data-input]"));
+            virtualDom.texts  = [].slice.call(container.querySelectorAll("[data-text]"));
+        }
+       component.addListeners= function addListeners(inputs) {          
+         
+          inputs.map( function (element) {
+            element.addEventListener("keyup", component.changeValues);
+            element.addEventListener("keydown", component.changeValues);
+            element.addEventListener("keypress", component.changeValues); 
+        });
+    } 
+     component.changeValues=function changeValues(event) {
+     component.renderValues(event.target.getAttribute("data-input"))
+    } 
+     component.renderValues = function renderValues(target) {            
+     [].map.call(component.container.querySelectorAll('[data-text="' + target + '"]'), 
+        function (element){
+                element.innerHTML = event.target.value;
+        });
+        [].map.call(component.container.querySelectorAll('[data-input="' + target + '"]'), function (element){     
+            element.value = event.target.value;
+         });
+    }
+        component.container=document.querySelector(params.element);
+        component.model=params.data;
+        component.getDynamicDom(this.container);              
+        component.syncData(this.container);  
+        component.addListeners(virtualDom.inputs);        
+};            
+    return app;
+})();
+var app = new micro_framework({
+  element: '#app-container',
+  data: {
+    name:"John",
+    last_name:"Doe",
+    address:"ellison park",
+  }
+});
+
+```
