@@ -4,7 +4,7 @@
   "description": "webpack introduction",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",    
+    "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack"
   },
   "repository": {
@@ -18,6 +18,8 @@
   },
   "homepage": "https://github.com/ricardo-perezo/Team.UI.Standards#readme",
   "devDependencies": {
+    "css-loader": "^0.28.4",
+    "style-loader": "^0.18.2",
     "webpack": "^3.5.3"
   },
   "dependencies": {
