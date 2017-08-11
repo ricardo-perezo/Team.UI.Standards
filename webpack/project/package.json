@@ -1,0 +1,25 @@
+{
+  "name": "webpackIntro",
+  "version": "0.1.0",
+  "description": "webpack introduction",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ricardo-perezo/Team.UI.Standards.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ricardo-perezo/Team.UI.Standards/issues"
+  },
+  "homepage": "https://github.com/ricardo-perezo/Team.UI.Standards#readme",
+  "devDependencies": {
+    "webpack": "^3.5.3"
+  },
+  "dependencies": {
+    "lodash": "^4.17.4"
+  }
+}
