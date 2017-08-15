@@ -1,0 +1,7 @@
+<h1>Edit User</h1>
+<form ng-if="ctrl.user && ctrl.user.name">
+  <label for="name">User:</label>
+  <input name="name" type="text" ng-model="ctrl.user.name"/><br>
+  <label for="pass">Password:</label>
+  <input name="pass" type="password" ng-model="ctrl.user.pass"/><br><br>
+</form>
