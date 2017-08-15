@@ -511,7 +511,52 @@ angular.module( 'YourApp', [ 'ngMaterial' ] )
 Use your project of exercise 5 to start, then see the [exercise sample solved](https://github.com/ricardo-perezo/Team.UI.Standards/blob/standars/uiDocs/angularJS/angularJS-docs/exercises/6/) to check your result.
 
 ## Unit Testing
-Work in Progress!
+
+Unit testing is a software development process in which the smallest testable parts of an application, called units, are individually and independently scrutinized for proper operation. Unit testing can be done manually but is often automated.
+
+**Why Karma?** Karma is a direct product of the AngularJS team from struggling to test their own framework features with existing tools. As a result of this, they made Karma and rightly suggest it as their preferred test runner within the AngularJS documentation.
+
+**Why Jasmine?** Jasmine is a behavior-driven development framework for testing JavaScript code that plays very well with Karma. Similar to Karma, it’s also the recommended testing framework within the AngularJS documentation. Jasmine is also dependency free and doesn’t require a DOM.
+
+**Exercise 7:** First Install Karma and Jasmine APIs, So in the project we are going to install this packages:
+
+```bash
+	npm install karma karma-jasmine jasmine-core karma-chrome-launcher --save-dev
+```
+
+Then we proceed to install our karma-cli environment:
+
+```bash
+	npm install -g karma-cli
+```
+
+When everything is ready, we execute the command **karma init** to create in our project the karma.conf.js. In this case our karma-cli are going to answer some configuration stuffs:
+
+![Configuration of Karma](https://cdn.scotch.io/440/L7sg62M5QWiEOtF9CspX_karma-init.png)
+
+In this particular case we are going to show you an example of UserService test unit where we going to make some simple test cases. [Please take a look](https://github.com/ricardo-perezo/Team.UI.Standards/blob/standars/uiDocs/angularJS/angularJS-docs/karma-example.md).
+
+Then you can copy that code in your angular project and save with name UserService.spec.js next to our UserService factory. Finally we have to modify our karma.config.js in the files section the dependencies what we need to run our test case:
+
+```javascript
+		files: [
+      './app/bower_components/angular/angular.js',
+      './app/bower_components/angular-ui-router/release/angular-ui-router.js',
+      './app/bower_components/angular-mocks/angular-mocks.js',
+
+      './node_modules/angular-material/angular-material.js',
+
+      './app/app.js',
+
+      './app/services/userServices.js',
+      './app/services/userServices.spec.js',
+
+    ],
+```
+
+Now we need only to run our test case **karma start** and that's it. You are free to play more with karma and jasmine and make more test cases for controllers, components, etc.
+
+Use your project of exercise 6 to start, then see the [exercise sample solved](https://github.com/ricardo-perezo/Team.UI.Standards/blob/standars/uiDocs/angularJS/angularJS-docs/exercises/7/) to check your result.
 
 
 ## Design Patterns in angularJS
