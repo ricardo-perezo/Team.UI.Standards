@@ -1,10 +1,24 @@
-#VanillaJS
+# VanillaJS
 _____________
 
-##Introduction
+<!-- vscode-markdown-toc -->
+* 1. [Introduction](#Introduction)
+* 2. [DOM Manipulation](#DOMManipulation)
+* 3. [HTTP Request](#HTTPRequest)
+* 4. [Events](#Events)
+* 5. [The Real Time Ilusion](#TheRealTimeIlusion)
+	* 5.1. [Change a text on input change](#Changeatextoninputchange)
+* 6. [The Router](#TheRouter)
+
+<!-- vscode-markdown-toc-config
+	numbering=true
+	autoSave=true
+	/vscode-markdown-toc-config -->
+<!-- /vscode-markdown-toc -->
+##  1. <a name='Introduction'></a>Introduction
 It's necesary understand that its possible work without frameworks or libraries but in the real world we can't take to much time to build everything from zero so this document don't pretend fight against jquery or frameworks, this document is to understand how we can work more efficiently and understand how some libraries work.
 
-## DOM Manipulation 
+##  2. <a name='DOMManipulation'></a>DOM Manipulation 
 Actually thanks to css3 is not necessary made style modifications or animations directly with js it's width only changing the classes we can make beatiful animations with good performance.
 
 ```js
@@ -33,7 +47,7 @@ document.querySelector("#parent").append(element)
 
 
 
-## HTTP Request
+##  3. <a name='HTTPRequest'></a>HTTP Request
 
 ```js
 //jQuery 
@@ -75,7 +89,7 @@ request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; cha
 request.send(data);
 ```
 
-## Events
+##  4. <a name='Events'></a>Events
 To handle an event it's really similar to jquery but faster
 ```js
 //Jquery
@@ -101,10 +115,10 @@ element.addEventListener('click', function(event) {
 
 At this moment it's understandable the point of this topic to review more functions to substitute JQuery you can go [here](http://codeblog.cz/vanilla/traversal.html#get-single-element-ancestors)
 
-## The Real Time Ilusion
+##  5. <a name='TheRealTimeIlusion'></a>The Real Time Ilusion
 A lot of frameworks help us to interact with the user, some times, the project is to short to implement a big framework for a landing page for example. So this chapter is to reinforce our skills and implements VanillaJS to recreate some functionalities that some times create the WOW effect que we see a new framework.
 
-### Change a text on input change 
+###  5.1. <a name='Changeatextoninputchange'></a>Change a text on input change 
 The first example is change the text of a element depending of a input
 
 ```html
@@ -174,7 +188,7 @@ Taking as reference the some patterns to improve the performance first we can pu
 </body>
 </html>
 ```
-Json structure to get dinamyc params, by the moment only it gonna take the element where the component will render
+Json structure to get dynamic params, by the moment only take the element where the component will render
 ```js
 //data structure 
 {
@@ -308,7 +322,7 @@ var app = new micro_framework({
 ```
 Okey with this it's posible simulate a 2 way data binding there exist some cases were we don't react for example what happend if we change the data directly on the object?, propose your solution! without using watch or observe methods. 
 
-## The Router
+##  6. <a name='TheRouter'></a>The Router
 the next step it's create a router to make the simulation of a sigle page application, to simulate this we need just 3 things the route, the template and a "component".
 
 ```js
@@ -318,7 +332,7 @@ var router= new Router([
 {path:'404',component:null,template:'<h1>Not Found</h1>'}
 ]);
 ```
-The route should detect 
+The router should detect the hash location and render the respective template for each route.
 
 ```js
 var Router = (function createRouter() {
@@ -375,4 +389,4 @@ var Router = (function createRouter() {
 ```
 And done now you have your own primitive microframework.
 You can find the files of the entire project in this repo so you can check and improve it.
-Can you made this better?
+Can you make this better?
