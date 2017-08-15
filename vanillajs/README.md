@@ -1,5 +1,4 @@
 # VanillaJS
-_____________
 
 <!-- vscode-markdown-toc -->
 * 1. [Introduction](#Introduction)
@@ -35,7 +34,7 @@ $("div").addClass("intro");
 Looks  dirty but see that for Jquery needs load 84KBs and for the second 0KBs.
 
 
-To append a new element it's easier:
+To append a new element it's easier.
 ```js
 //JQuery
 $("#parent").append(element);
@@ -44,11 +43,8 @@ $("#parent").append(element);
 document.querySelector("#parent").append(element)
 ```
 
-
-
-
 ##  3. <a name='HTTPRequest'></a>HTTP Request
-
+The vanillaJS it´s now crossbrower support and it's posible control the request in each step of a request.
 ```js
 //jQuery 
 $.getJSON('/my/url', function(data) {
@@ -74,7 +70,7 @@ request.onerror = function() {
 
 request.send();
 ```
-As you can see it's just about know the parts of the request and what is needed to refactorize, for post it' can be hadled by a form but if it's needed make something by js:
+As you can see it's just about know the parts of the request and what is needed to refactorize, for post it' can be hadled by a form but if it's needed make something by js.
 ```js
 //Jquery
 $.ajax({
@@ -90,7 +86,7 @@ request.send(data);
 ```
 
 ##  4. <a name='Events'></a>Events
-To handle an event it's really similar to jquery but faster
+Handle an event it's really similar to jquery.
 ```js
 //Jquery
 $(el).on(eventName, eventHandler);
@@ -98,10 +94,10 @@ $(el).on(eventName, eventHandler);
 el.addEventListener(eventName, eventHandler);
 ```
 
-even the delegation events passed from  the key to use Jquery to be useles
+Even the delegation events passed from the key to use Jquery to be replaced.
 ```js
 //jQuery
-element.on('click', '.hello', function() {
+element.on('click', '.hello', function(event) {
     alert('Hello!');
 });
 //Vanilla JS
@@ -112,7 +108,6 @@ element.addEventListener('click', function(event) {
     }
 });
 ```
-
 At this moment it's understandable the point of this topic to review more functions to substitute JQuery you can go [here](http://codeblog.cz/vanilla/traversal.html#get-single-element-ancestors)
 
 ##  5. <a name='TheRealTimeIlusion'></a>The Real Time Ilusion
