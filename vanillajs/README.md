@@ -138,8 +138,8 @@ function changeText(event){
     document.querySelector('[data-text="custom"]').innerHTML=event.target.value;
 }
 ```
-It works but is no to much impresive because it's semi harcoded.
-if we wanted a kind of function to make this modular we should set some rules for example, to identify any kind of data  we will use de convention of [data attribute](https://developer.mozilla.org/en-US/docs/Learn/HTML/Howto/Use_data_attributes)
+It works but is no to much impresive because it's semi harcoded,
+if we wanted a kind of function to make this modular we should set some rules for example, to identify any kind of data  we will use de convention of [data attribute](https://developer.mozilla.org/en-US/docs/Learn/HTML/Howto/Use_data_attributes).
 
 ```js
 var micro_framework = (function create_Module() {
@@ -168,7 +168,7 @@ micro_framework.create();
 ```
 25 Lines of code to get a "primitive" microframework, a lot of stuff is needed to validate and improve but it's a good start. As you can see the performance is not too good because we are adding a lot of listeners to the dom to check the changes, what if we need to change 1000 inputs at the same time?, Do we need to add 4000 listeners?
 
-Taking as reference the some patterns to improve the performance first we can put an id to identify the scope of our app in the dom.
+Improve the performance with an  id to identify the scope of our app in the DOM.
 ```html
 <!DOCTYPE html>
 <html lang="en">
@@ -183,7 +183,7 @@ Taking as reference the some patterns to improve the performance first we can pu
 </body>
 </html>
 ```
-Json structure to get dynamic params, by the moment only take the element where the component will render
+JSON structure to get dynamic params, by the moment only take the element where the component will render
 ```js
 //data structure 
 {
