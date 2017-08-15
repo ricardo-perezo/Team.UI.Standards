@@ -1,5 +1,58 @@
 # ANGULARJS
 
+<!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
+
+- [ANGULARJS](#angularjs)
+	- [Overview](#overview)
+	- [Controllers](#controllers)
+	- [Directives](#directives)
+		- [Some Directives Predefined](#some-directives-predefined)
+		- [Restrict Types in Directives](#restrict-types-in-directives)
+	- [Components](#components)
+	- [Directives vs Components](#directives-vs-components)
+	- [Services](#services)
+		- [Consuming Services](#consuming-services)
+		- [Services Error Handling](#services-error-handling)
+	- [Factory](#factory)
+	- [Factory vs Services](#factory-vs-services)
+	- [Router](#router)
+		- [Router with ui-router API](#router-with-ui-router-api)
+	- [Angular Material](#angular-material)
+	- [Unit Testing](#unit-testing)
+	- [Design Patterns in angularJS](#design-patterns-in-angularjs)
+		- [DP in Services](#dp-in-services)
+			- [Singleton](#singleton)
+			- [Factory Method](#factory-method)
+			- [Decorator](#decorator)
+			- [Facade](#facade)
+			- [Proxy](#proxy)
+			- [Active Record](#active-record)
+			- [Intercepting Filters](#intercepting-filters)
+		- [Directives](#directives)
+			- [Composite](#composite)
+			- [Interpreter](#interpreter)
+			- [Template View](#template-view)
+		- [Scope](#scope)
+			- [Observer](#observer)
+			- [Chain of Responsabilities](#chain-of-responsabilities)
+			- [Command](#command)
+		- [Controllers](#controllers)
+			- [Page Controller](#page-controller)
+	- [Best Practices](#best-practices)
+		- [How to Use 'controllerAs' Sintax Properly?](#how-to-use-controlleras-sintax-properly)
+		- [Writing Controllers as Classes](#writing-controllers-as-classes)
+		- [How to Set Watch](#how-to-set-watch)
+		- [Single Responsability](#single-responsability)
+		- [Small Functions](#small-functions)
+		- [Javascript Scopes](#javascript-scopes)
+		- [Avoid Naming Collisions](#avoid-naming-collisions)
+		- [Definitions (aka Setters)](#definitions-aka-setters)
+		- [Bindable Members Up Top](#bindable-members-up-top)
+	- [Bibliography](#bibliography)
+
+<!-- /TOC -->
+
+
 ## Overview
 Here's a set of general concepts into angularjs environment which you need to know before we begin:
 
@@ -461,7 +514,7 @@ Use your project of exercise 5 to start, then see the [exercise sample solved](h
 Work in Progress!
 
 
-## Design Patterns (DP) in angularJS
+## Design Patterns in angularJS
 
 >Note: This topic was exactly taked from [here](https://github.com/mgechev/angularjs-in-patterns#services-1).
 
