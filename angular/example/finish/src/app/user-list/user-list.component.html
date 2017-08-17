@@ -1,0 +1,10 @@
+<div class="col-md-9">
+  <div class="user col-md-2 text-center" *ngFor="let user of getGitUsers()" (click)="getDetails(user.login)">
+    <div class="img_container">
+      <img src="{{user.avatar_url}}" class="img-circle" width="100" height="100">
+    </div>
+    <div class="details_container">
+      <a href="{{user.html_url}}" target="_blank" class="login_name">{{ user.login }}</a>
+    </div>
+  </div>
+</div>

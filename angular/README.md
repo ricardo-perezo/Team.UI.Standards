@@ -1,3 +1,38 @@
+# Angular
+
+<!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
+
+- [Angular](#angular)
+- [Architecture Overview](#architecture-overview)
+	- [Provider](#provider)
+	- [Classes](#classes)
+	- [Interface](#interface)
+	- [Pipes](#pipes)
+	- [Modules](#modules)
+	- [Components](#components)
+	- [Services](#services)
+	- [Routes](#routes)
+		- [Base href](#base-href)
+	- [Guards](#guards)
+		- [Guard Types](#guard-types)
+			- [Activating Routes (Defining Guards)](#activating-routes-defining-guards)
+		- [Deactivating Routes](#deactivating-routes)
+- [Benefits of Angular 2 over Angular 1.x](#benefits-of-angular-2-over-angular-1x)
+	- [Improved Dependency Injection](#improved-dependency-injection)
+	- [Asynchronous Template Compilation](#asynchronous-template-compilation)
+	- [Simpler Routing](#simpler-routing)
+	- [TypeScript](#typescript)
+	- [Component-Based](#component-based)
+	- [Tooling](#tooling)
+- [Observable Over Promises](#observable-over-promises)
+	- [Promise](#promise)
+	- [Observable](#observable)
+- [BehaviorSubject](#behaviorsubject)
+- [angular-cli](#angular-cli)
+- [Bibliography](#bibliography)
+
+<!-- /TOC -->
+
 # Architecture Overview
 Angular is a framework for building client applications in HTML and either JavaScript or a language like TypeScript that compiles to JavaScript.
 
@@ -276,6 +311,61 @@ A Promise handles a single event when an async operation completes or fails.
 
 - There are also powerful operators like retry(), or replay(), ... that are often quite handy.
 
+# BehaviorSubject
+
+BehaviorSubject is a type of subject, a subject is a special type of observable so you can subscribe to messages like any other observable. The unique features of BehaviorSubject are:
+
+- It needs an initial value as it must always return a value on subscription even if it hasn't received a next()
+- Upon subscription it returns the last value of the subject. A regular observable only triggers when it receives an onnext
+- At any point you can retrieve the last value of the subject in a non-observable code using the getValue() method.
+
+Unique features of a subject compared to an observable are:
+
+- It is an observer in addition to being an observable so you can also send values to a subject in addition to subscribing to it.
+
+In addition you can get an observable from behavior subject using the asobservable() method on BehaviorSubject.
+
+Observable is a Generic, and BehaviorSubject is technically a sub-type of Observable because BehaviorSubject is an observable with specific qualities.
+
+```JavaScript
+/ Behavior Subject
+
+//init our BehaviorSubject
+let bSubject = new BehaviorSubject("initial_value");
+
+//update our BehaviorSubject
+bSubject.next("my_changed_value");
+
+//see value of our BehaviorSubject
+bSubject.subscribe((value) => {
+  console.log("Subscription got", value);
+});
+
+bSubject.next("c"); // Subscription got c
+bSubject.next("d"); // Subscription got d
+```
+
+
+# angular-cli
+
+With angular-cli is more easy create an angular project because all you need to do is type some command to create a basic skeleton of an angular application. Some basic commands:
+
+```bash
+    $> ng new name_of_your_project  //create the skeleton angular project
+    $> ng serve (--port number_port) //run the angular application
+    $> ng generate component component_name //create a component
+    $> ng generate service service_name // create a service
+```
+
+**EXERCISE: ** Download the blank project or create a new project with angular-cli. This time we are going to create a devs browser using the github api to find developers by language programming or by place. Some considerations:
+
+1. when you have the project already, make sure that run without problem.
+2. The app will be divided in three elements (components), the search-users area, the list of users and the detail per user. So it means you have to generate 3 components with this characteristics.
+3. Create your service for make your request to github api:
+    - https://api.github.com/search/users?q=location:place+language:language (to fetch list of users)
+    - https://api.github.com/users/:username (to fetch details per user)
+4. Optional: you can use BehaviorSubject to implement stores inside our angular app to share data between components like vue or react. To do that you can use the service created before and add some methods to access the  BehaviorSubject. Don't forget to make private this attribute.   
+
 
 # Bibliography
 
@@ -294,9 +384,3 @@ A Promise handles a single event when an async operation completes or fails.
 7. https://angular-2-training-book.rangle.io/handout/features/interfaces.html
 
 8. https://angular.io/guide/pipes
-
-# Some Practices
-
-http://amanvirk.me/angular-cli-getting-started/
-
-https://stormpath.com/blog/angular-2-user-authentication
