@@ -1,0 +1,26 @@
+<div *ngIf="getGitUserDetail().name" class="col-md-3">
+  <div class="box text-center">
+    <img src="{{getGitUserDetail().avatar_url}}" class="img-responsive img-circle">
+    <div class="details">
+      <div *ngIf="getGitUserDetail().name"><a href="{{ getGitUserDetail().html_url }}" target="_blank"><h3>{{ getGitUserDetail().name }} </h3></a></div>
+      <hr>
+      <div *ngIf="getGitUserDetail().email">Email: {{ getGitUserDetail().email }}</div>
+      <hr>
+      <div *ngIf="getGitUserDetail().location">Location: {{ getGitUserDetail().location }}</div>
+      <hr>
+      <div *ngIf="getGitUserDetail().bio">Bio: {{ getGitUserDetail().bio }}</div>
+      <hr>
+      <div *ngIf="getGitUserDetail().updated_at">Last Seen: {{ getGitUserDetail().updated_at | date }}</div>
+      <hr>
+      <div *ngIf="getGitUserDetail().public_repos">Repos: {{ getGitUserDetail().public_repos }}</div>
+      <hr>
+      <div *ngIf="getGitUserDetail().public_gists">Gists: {{ getGitUserDetail().public_gists }}</div>
+      <hr>
+      <div *ngIf="getGitUserDetail().followers">Followers: {{ getGitUserDetail().followers }}</div>
+      <hr>
+      <div *ngIf="getGitUserDetail().created_at">Joined github: {{ getGitUserDetail().created_at | date }}</div>
+      <hr>
+      <button class="btn btn-sm btn-warning" (click)="selected = !selected">Back</button>
+    </div>
+  </div>
+</div>
