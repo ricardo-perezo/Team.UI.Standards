@@ -356,33 +356,56 @@ You may've noticed that so far, we've been using the `let` keyword instead of Ja
 The `let` keyword is actually a newer JavaScript construct that TypeScript makes available.
 We'll discuss the details later, but many common problems in JavaScript are alleviated by using `let`, so you should use it instead of `var` whenever possible.
 ##  5. <a name='Operators'></a> Operators
+
 ##  6. <a name='DecisionMaking'></a> Decision Making
+
 ##  7. <a name='Loops'></a> Loops
+
 ##  8. <a name='Functions'></a> Functions
+
 ##  9. <a name='Numbers'></a> Numbers
+
 ##  10. <a name='Strings'></a> Strings
+
 ##  11. <a name='Arrays'></a> Arrays
+
 ##  12. <a name='Tuples'></a> Tuples
+
 ##  13. <a name='Union'></a> Union
+
 ##  14. <a name='Interfaces'></a> Interfaces
+
 ##  15. <a name='Classes'></a> Classes
+
 ##  16. <a name='Objects'></a> Objects
+
 ##  17. <a name='Namespaces'></a> Namespaces
+
 ##  18. <a name='Modules'></a> Modules
+
 ##  19. <a name='Ambients'></a> Ambients
+
 ##  20. <a name='Generics'></a>Generics
+
 ##  21. <a name='Enums'></a>Enums
+
 ##  22. <a name='TypeInference'></a>Type Inference
+
 ##  23. <a name='TypeCompatibility'></a>Type Compatibility
+
 ##  24. <a name='AdvancedTypes'></a>Advanced Types
+
 ##  25. <a name='Symbols'></a>Symbols
+
 ##  26. <a name='IteratorsandGenerators'></a>Iterators and Generators
+
 ##  27. <a name='Modules-1'></a>Modules
+
 ##  28. <a name='Namespaces-1'></a>Namespaces
+
 ##  29. <a name='NamespacesandModules'></a>Namespaces and Modules
+
 ##  30. <a name='ModuleResolution'></a>Module Resolution
+
 ##  31. <a name='DeclarationMerging'></a>Declaration Merging
-##  32. <a name='JSX'></a>JSX
-##  33. <a name='Decorators'></a>Decorators
-##  34. <a name='Mixins'></a>Mixins
-##  35. <a name='Triple-SlashDirectives'></a>Triple-Slash Directives
+
