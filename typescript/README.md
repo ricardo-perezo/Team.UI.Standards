@@ -53,11 +53,12 @@
 	numbering=true
 	autoSave=true
 	/vscode-markdown-toc-config -->
-<!-- /vscode-markdown-toc -->#Typescript 
+<!-- /vscode-markdown-toc -->
+# Typescript 
 
 
 ##  1. <a name='Introduction.'></a>Introduction.
-###  1.1. <a name='Whatitis'></a>What it is?
+###  1.1. <a name='Whatitis'></a>What is it?
 Typescript it's a language that compiles into Javascript and try to prevent some of the most common issues made by the developers in the work time and add some of the new ecma standards to JS even though it's not completely supported by all browsers. 
 
 
