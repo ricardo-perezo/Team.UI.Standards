@@ -1,0 +1,43 @@
+<div ng-repeat="user in list">
+  <md-content class="md-padding" layout-xs="column" layout="row">
+    <div flex layout="column">
+      <md-card md-theme="{{ showDarkTheme ? 'dark-grey' : 'default' }}" md-theme-watch>
+        <md-card-title>
+          <md-card-title-text>
+            <span class="md-subhead">{{user.name}}</span>
+            <img style="width: 10%; height: 10%;" src="http://www.happycowsgivemoremilk.nl/image/ondernemer.svg"/>
+          </md-card-title-text>
+          <md-card-title-media>
+            <div class="md-media-lg card-media"></div>
+          </md-card-title-media>
+        </md-card-title>
+        <md-card-actions layout="row" layout-align="end center">
+          <md-button ng-click="editUser({user: user})">Edit</md-button>
+        </md-card-actions>
+      </md-card>
+    </div>
+  </md-content>
+</div>
+
+
+
+<!--div ng-cloak layout-gt-sm="row" layout="column">
+  <div flex>
+    <md-toolbar layout="row" class="md-hue-3">
+      <div class="md-toolbar-tools">
+        <span>User Editions</span>
+      </div>
+    </md-toolbar>
+
+    <md-content>
+      <md-list flex>
+        <md-list-item class="md-3-line" ng-repeat="user in list" ng-click="editUser({user: user})">
+          <div class="md-list-item-text" layout="column">
+            <h3>{{ user.name }}</h3>
+            <h4>{{ user.pass }}</h4>
+          </div>
+        </md-list-item>
+      </md-list>
+    </md-content>
+  </div>
+</div-->
