@@ -5,3 +5,6 @@ var list: Array<number> = [1, 2, 3];
 var isBoolean:boolean=true;
 var tuple:[string,number]=["key",22]
 
+
+//complex object 
+let obj:{a:string, b: number,c:[string,string]};
